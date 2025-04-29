@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* font-family: Plus Jakarta Sans; */
+}
+/* NAVBAR */
+nav {
+    background: linear-gradient(to right, #003355, #0171BB);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.nav-link:hover {
+    color: #FFAD4D !important;
+}
+
+.logo {
+    height: 2em;
+    margin: 5px;
+}
+a {
+    text-decoration: none;
+}
+
+/* NAVBAR */
+/*FOOTER*/
+footer {
+    background: linear-gradient(to right, #003355, #0171BB);
+}
+
+footer p,
+footer ul {
+    font-size: .9rem;
+}
+/*FOOTER*/
+
+
+/* PROGRESS CSS */
+
+.flight-search {
+    margin-top: 80px;
+}
+
+label, h2, .flight-search i{
+    color:#00204A;
+    font-weight: 700;
+}
+
+.form-control, .form-select {
+    background-color: #ededed;
+}
+
+.form-control, .form-select {
+    border: 1px solid transparent;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border: 1px solid #1b6fa6;
+}
+.card {
+    border-radius: 10px ;
+}
+
+#flightType {
+    font-weight: 700;
+    color:#fff;
+    background-color:#1b6fa6;
+}
+#btnSearchFlight {
+    font-weight: 700;
+    color:#fff;
+    background-color: #1b6fa6;
+    width: 15rem;
+    height: 2.5rem;
+}
+/* SELECT FLIGHT */
+
+/* WEEKLY */
+
+.button {
+    background-color: #0171BB;
+    width: 30px;
+    border-radius: none;
+    border: 5px solid #0171BB;
+}
+
+.inner {
+    display: flex;
+    border-right: 2px solid #1b6fa6;
+    width: auto;
+    margin: 0 20px; /* adjust margin with btn width */
+}
+
+.week {
+    display: flex;
+    flex-flow:row;
+    /* flex-grow: 1; */
+}
+
+.dayOfWeek {
+    list-style-type: none;
+}
+
+.radio-item [type="radio"] {
+    display: none;
+}
+
+.radio-item label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70px;
+    min-width: 40px;
+    height: 100px;
+
+    font-size: .7rem;
+    border-left: 2px solid #1b6fa6;
+    border-top: 2px solid #1b6fa6;
+    border-bottom: 2px solid #1b6fa6;
+}
+
+.radio-item [type="radio"]:checked ~ label {
+    border-color: #1b6fa6;
+    background-color: #1b6fa6;
+    color:aliceblue
+}
+
+
+
+@media screen and (min-width: 768px) {
+    #flightType {
+        width: 150px;
+    }
+}
+
+
+#AvailableFlights {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+
+}

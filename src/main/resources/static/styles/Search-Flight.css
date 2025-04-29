@@ -1,0 +1,481 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Plus Jakarta Sans;
+}
+
+
+.flight-search {
+    background: rgba(255, 255, 255, 0.74);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+
+    width: 85%;
+}
+
+#fromAndTo
+{
+    padding-inline: 3%;
+    width: 40%;
+}
+
+#departAndreturn
+{
+    width: 40%;
+    padding-inline: 3%;
+}
+
+.flight-search
+{
+    padding-bottom: 70px;
+}
+
+.flight-search .input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.flight-search input, .flight-search select, .flight-search button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.flight-search button {
+    background-color: #005EB8;
+    color: white;
+    border: none;
+    padding: 0%;
+    cursor: pointer;
+}
+
+.flight-search button:hover {
+    background-color: #003D7C;
+}
+
+.dropdown{
+    display: flex;
+    /* gap: %; */
+    margin-bottom: 0.5em;
+}
+
+#dropdownMenuButton
+{
+
+    padding-inline: 2.5em;
+}
+
+
+
+.dropdown-item
+{
+    color: #003D7C;
+    text-align: center;
+
+}
+
+
+
+.dropdown-menu li>a:hover{
+
+    background-color: #005EB8;
+    color: white;
+}
+
+.dropdown-menu:hover{
+    background-color: #005EB8;
+    color: white;
+}
+
+
+
+.form-label
+{
+    color: #00204A;
+    font-weight: 900;
+}
+
+#arrow
+{
+    width: 30px;
+    margin-right: 1em;
+    margin-top: 1.5em;
+}
+
+
+#searchBtn
+{
+    align-items: center;
+
+
+}
+
+#searchBtn1
+{
+    font-size: 20px;
+    white-space: nowrap;
+    width: 85%;
+    height: 70%;
+    align-items: center;
+
+}
+
+.plane{
+    margin-inline: 20px;
+}
+
+
+/* ---------------- Responsinve Codes ---------------------- */
+
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+
+   .dropdown
+   {
+    padding-right: 10%;
+   }
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+
+
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+
+    .dropdown{
+
+
+        padding-bottom: 10px;
+    }
+
+
+    .dropdown{
+        margin-left:20%
+    }
+
+    .form-group {
+        flex-direction: column; /* Stack elements vertically on small screens */
+        justify-content: center; /* Center the form group horizontally */
+        align-items: center; /* Center the form inputs and button */
+      }
+
+      #fromAndTo{
+
+        width: 100%; /* Full width to ensure inputs stretch */
+        margin-top: 5%;
+        margin-bottom: 30px;
+    }
+
+    #departAndreturn {
+
+        width: 100%; /* Full width to ensure inputs stretch */
+
+    }
+
+    #fromAndTo .w-100, #departAndreturn .w-100 {
+        width: 100%; /* Ensure that individual inputs take up the full width */
+        max-width: 100%; /* Optionally set a max-width for inputs */
+      }
+
+      #searchBtn {
+        margin-top: 20px;
+        align-self: center; /* Center the button */
+        width: 100%; /* Full width on small screens */
+        height: 100%;
+        max-width: 500px; /* Optionally limit the width on larger phone screens */
+      }
+
+      #searchBtn1 {
+        width: 100%; /* Ensure the button takes up the full width of its container */
+        height: 100%;
+      }
+
+
+
+
+
+}
+
+
+
+
+
+
+/* Extra large devices (large laptops and desktops) */
+
+
+
+
+@media only screen and (max-width:1025px) {
+    .dropdown{
+        margin-left:20%
+    }
+
+    .form-group {
+        flex-direction: column; /* Stack elements vertically on small screens */
+        justify-content: center; /* Center the form group horizontally */
+        align-items: center; /* Center the form inputs and button */
+      }
+
+      #fromAndTo{
+
+        width: 100%; /* Full width to ensure inputs stretch */
+        margin-top: 5%;
+        margin-bottom: 30px;
+    }
+
+    #departAndreturn {
+
+        width: 100%; /* Full width to ensure inputs stretch */
+
+    }
+
+    #fromAndTo .w-100, #departAndreturn .w-100 {
+        width: 100%; /* Ensure that individual inputs take up the full width */
+        max-width: 100%; /* Optionally set a max-width for inputs */
+      }
+
+      #searchBtn {
+        margin-top: 20px;
+        align-self: center; /* Center the button */
+        width: 100%; /* Full width on small screens */
+        height: 100%;
+        max-width: 500px; /* Optionally limit the width on larger phone screens */
+      }
+
+      #searchBtn1 {
+        width: 100%; /* Ensure the button takes up the full width of its container */
+        height: 100%;
+      }
+
+
+
+
+}
+
+@media only screen and (min-width:1500px) {
+
+
+    #fromAndTo
+    {
+        padding-inline: 2%;
+        width: 40%;
+    }
+
+    #departAndreturn
+    {
+        width: 40%;
+        padding-inline: 2%;
+    }
+
+    #searchBtn
+    {
+        margin-left: 1em;
+        margin-top: 1em;
+    }
+
+    #searchBtn1
+    {
+        width: 100%;
+    }
+
+
+
+}
+
+@media only screen and (min-width:1280px) {
+    .dropdown{
+        gap:18%;
+
+    }
+
+
+    #fromAndTo
+    {
+        padding-inline: 2%;
+        width: 40%;
+    }
+
+    #departAndreturn
+    {
+        width: 40%;
+        padding-inline: 2%;
+    }
+
+    #searchBtn
+    {
+        margin-left: 1em;
+        margin-top: 1em;
+    }
+
+    #searchBtn1
+    {
+        width: 100%;
+    }
+
+
+
+}
+@media only screen and (min-width:1366px) {
+
+
+    .dropdown{
+        gap:18.5%;
+
+    }
+
+
+
+}
+
+
+@media only screen and (min-width:1440px) {
+
+    .dropdown{
+        gap:19.5%;
+
+    }
+
+
+    #searchBtn1
+    {
+        font-size: 25px;
+        width: 100%;
+        height: 70%;
+        margin-inline: 5%;
+
+    }
+
+
+}
+
+@media only screen and (min-width:1680px) {
+    .dropdown{
+        gap:22%;
+
+
+}
+
+
+@media only screen and (min-width:1920px) {
+
+
+    .dropdown{
+        gap:24%;
+
+    }
+
+
+    #searchBtn1
+    {
+        font-size: 25px;
+        width: 85%;
+        height: 70%;
+        margin-inline: 5%;
+
+    }
+
+
+}
+
+
+@media only screen and (min-width:2560px) {
+
+
+    #dropdownMenuButton
+    {
+        /* width: 10%; */
+        height: 10%;
+        font-size: 30px;
+    }
+
+    #roundTripBtn
+    {
+        width: 9%;
+        font-size: 35px;
+    }
+
+    #fromAndTo
+    {
+        padding-inline: 3%;
+        width: 40%;
+    }
+
+    #departAndreturn
+    {
+        width: 40%;
+        padding-inline: 3%;
+    }
+
+
+    #searchBtn1
+    {
+        font-size: 35px;
+        width: 85%;
+        height: 70%;
+        margin-inline: 5%;
+
+    }
+
+
+}
+
+@media only screen and (min-width: 3840px) {
+
+
+    .dropdown{
+        gap:28.5%;
+
+    }
+
+    #dropdownMenuButton
+    {
+        /* width: 10%; */
+        height: 10%;
+        font-size: 30px;
+    }
+
+    #roundTripBtn
+    {
+        width: 9%;
+        font-size: 35px;
+    }
+
+    #fromAndTo
+    {
+        padding-inline: 3%;
+        width: 40%;
+    }
+
+    #departAndreturn
+    {
+        width: 40%;
+        padding-inline: 3%;
+    }
+
+
+
+    #searchBtn1
+    {
+        font-size: 35px;
+        width: 85%;
+        height: 70%;
+        margin-inline: 5%;
+
+    }
+
+
+
+}

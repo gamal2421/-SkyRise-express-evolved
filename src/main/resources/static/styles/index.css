@@ -1,0 +1,787 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* font-family: Plus Jakarta Sans; */
+}
+
+/* NAVBAR */
+nav {
+	background: linear-gradient(to right, #003355, #0171BB);
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.nav-link:hover {
+    color: #FFAD4D !important;
+}
+
+.logo {
+	height: 2em;
+	margin: 5px;
+}
+
+a {
+  text-decoration: none;
+}
+
+main .hero {
+    position: relative;
+}
+
+.carousel-inner img {
+    height: 95vh;
+    object-fit: cover;
+}
+
+.carousel-caption {
+
+    top: 10%;
+    text-align: center;
+    color: white;
+}
+
+.carousel-caption h1 {
+    font-size: 3em;
+    font-weight: 800;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+
+.flight-search {
+    background: rgba(255, 255, 255, 0.74);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+}
+
+#fromAndTo
+{
+    padding-inline: 3%;
+    width: 40%;
+}
+
+#departAndreturn
+{
+    width: 40%;
+    padding-inline: 3%;
+}
+
+.flight-search
+{
+    padding-bottom: 70px;
+}
+
+.flight-search .input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.flight-search input, .flight-search select, .flight-search button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.flight-search button {
+    background-color: #005EB8;
+    color: white;
+    border: none;
+    padding: 0%;
+    cursor: pointer;
+}
+
+.flight-search button:hover {
+    background-color: #003D7C;
+}
+
+.dropdown{
+    display: flex;
+    gap: 43%;
+    margin-bottom: 0.5em;
+}
+
+#dropdownMenuButton
+{
+
+    padding-inline: 2.5em;
+}
+
+
+
+.dropdown-item
+{
+    color: #003D7C;
+    text-align: center;
+
+}
+
+
+
+.dropdown-menu li>a:hover{
+
+    background-color: #005EB8;
+    color: white;
+}
+
+.dropdown-menu:hover{
+    background-color: #005EB8;
+    color: white;
+}
+
+
+
+.form-label
+{
+    color: #00204A;
+    font-weight: 900;
+}
+
+#arrow
+{
+    width: 30px;
+    margin-right: 1em;
+    margin-top: 1.5em;
+}
+
+
+#searchBtn
+{
+    align-items: center;
+
+
+}
+
+#searchBtn1
+{
+    font-size: 20px;
+    white-space: nowrap;
+    width: 85%;
+    height: 70%;
+    align-items: center;
+
+}
+
+.colorBG
+{
+    background-color: #FFFFE3;
+}
+
+#Banner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-left: 15em;
+  }
+
+  #quote {
+    font-size: 1.5rem;
+    color: #00204A;
+
+  }
+
+  #steward1 {
+    width: 100%;
+    max-width: 500px;
+    margin-left: 1em;
+  }
+
+
+/* General News Section */
+.news-section {
+    background-color: #f8f9fa;
+  }
+
+  .news-section h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0d47a1;
+  }
+
+  .news-card {
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Card Image Wrapper */
+  .card-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+
+  .card-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .card-image-wrapper:hover img {
+    transform: scale(1.05);
+  }
+
+
+  .news-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: rgba(0, 0, 139, 0.8);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+  }
+
+  .news-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  /* Card Body Text */
+  .card-subtitle {
+    font-weight: bold;
+    margin-top: 15px;
+  }
+
+  .card-text {
+    font-size: 0.95rem;
+    color: #333;
+  }
+
+
+
+
+footer {
+	background: linear-gradient(to right, #003355, #0171BB);
+}
+
+footer p,
+footer ul {
+	font-size: .9rem;
+}
+
+
+/* ---------------- Responsinve Codes ---------------------- */
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+  #Banner .row {
+        flex-direction: column-reverse; /* Stacks the image above the quote on smaller screens */
+      }
+
+      #quote {
+        font-size: 1.2rem; /* Adjust the font size for smaller screens */
+        padding: 20px 0; /* Add some padding for better readability */
+      }
+
+      #steward1 {
+        width: 100%;
+        max-width: 100%; /* Allow the image to take full width on small screens */
+      }
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+
+   .dropdown
+   {
+    padding-right: 10%;
+   }
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+
+
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+    .carousel-caption h1
+    {
+        font-size: 3em;
+    }
+
+    .dropdown{
+
+
+        padding-bottom: 10px;
+    }
+
+
+    .dropdown{
+        margin-left:20%
+    }
+
+    .form-group {
+        flex-direction: column; /* Stack elements vertically on small screens */
+        justify-content: center; /* Center the form group horizontally */
+        align-items: center; /* Center the form inputs and button */
+      }
+
+      #fromAndTo{
+
+        width: 100%; /* Full width to ensure inputs stretch */
+        margin-top: 5%;
+        margin-bottom: 30px;
+    }
+
+    #departAndreturn {
+
+        width: 100%; /* Full width to ensure inputs stretch */
+
+    }
+
+    #fromAndTo .w-100, #departAndreturn .w-100 {
+        width: 100%; /* Ensure that individual inputs take up the full width */
+        max-width: 100%; /* Optionally set a max-width for inputs */
+      }
+
+      #searchBtn {
+        margin-top: 20px;
+        align-self: center; /* Center the button */
+        width: 100%; /* Full width on small screens */
+        height: 100%;
+        max-width: 500px; /* Optionally limit the width on larger phone screens */
+      }
+
+      #searchBtn1 {
+        width: 100%; /* Ensure the button takes up the full width of its container */
+        height: 100%;
+      }
+
+      #Banner {
+
+        margin-left: 5em;
+        padding: 20px;
+      }
+      #steward1 {
+        width:1000px;
+        height: 400px;
+
+      }
+
+
+
+
+
+
+}
+
+
+
+
+
+
+/* Extra large devices (large laptops and desktops) */
+
+
+
+
+@media only screen and (max-width:1025px) {
+    .dropdown{
+        margin-left:20%
+    }
+
+    .form-group {
+        flex-direction: column; /* Stack elements vertically on small screens */
+        justify-content: center; /* Center the form group horizontally */
+        align-items: center; /* Center the form inputs and button */
+      }
+
+      #fromAndTo{
+
+        width: 100%; /* Full width to ensure inputs stretch */
+        margin-top: 5%;
+        margin-bottom: 30px;
+    }
+
+    #departAndreturn {
+
+        width: 100%; /* Full width to ensure inputs stretch */
+
+    }
+
+    #fromAndTo .w-100, #departAndreturn .w-100 {
+        width: 100%; /* Ensure that individual inputs take up the full width */
+        max-width: 100%; /* Optionally set a max-width for inputs */
+      }
+
+      #searchBtn {
+        margin-top: 20px;
+        align-self: center; /* Center the button */
+        width: 100%; /* Full width on small screens */
+        height: 100%;
+        max-width: 500px; /* Optionally limit the width on larger phone screens */
+      }
+
+      #searchBtn1 {
+        width: 100%; /* Ensure the button takes up the full width of its container */
+        height: 100%;
+      }
+
+      #Banner {
+
+        margin-left: 5em;
+        padding: 20px;
+      }
+      #steward1 {
+        width:1000px;
+        height: 400px;
+
+      }
+
+
+
+}
+
+@media only screen and (min-width:1500px) {
+
+
+    #fromAndTo
+    {
+        padding-inline: 2%;
+        width: 40%;
+    }
+
+    #departAndreturn
+    {
+        width: 40%;
+        padding-inline: 2%;
+    }
+
+    #searchBtn
+    {
+        margin-left: 1em;
+        margin-top: 1em;
+    }
+
+    #searchBtn1
+    {
+        width: 100%;
+    }
+
+    #Banner {
+
+        margin-left: 5em;
+        padding: 20px;
+      }
+      #steward1 {
+        width:1000px;
+        height: 400px;
+
+      }
+
+
+}
+
+@media only screen and (min-width:1280px) {
+    .dropdown{
+        gap:18%;
+
+    }
+
+
+    #fromAndTo
+    {
+        padding-inline: 2%;
+        width: 40%;
+    }
+
+    #departAndreturn
+    {
+        width: 40%;
+        padding-inline: 2%;
+    }
+
+    #searchBtn
+    {
+        margin-left: 1em;
+        margin-top: 1em;
+    }
+
+    #searchBtn1
+    {
+        width: 100%;
+    }
+
+    #Banner {
+
+        margin-left: 5em;
+        padding: 20px;
+      }
+      #steward1 {
+        width:1000px;
+        height: 400px;
+
+      }
+
+
+}
+@media only screen and (min-width:1366px) {
+
+    .carousel-caption h1
+    {
+        font-size: 2em;
+    }
+
+    .dropdown{
+        gap:18.5%;
+
+    }
+
+    #Banner {
+
+        margin-left: 5em;
+        padding: 20px;
+      }
+      #steward1 {
+        width:1000px;
+        height: 400px;
+
+      }
+
+
+}
+
+
+@media only screen and (min-width:1440px) {
+
+    .dropdown{
+        gap:19.5%;
+
+    }
+
+
+    #searchBtn1
+    {
+        font-size: 25px;
+        width: 100%;
+        height: 70%;
+        margin-inline: 5%;
+
+    }
+
+    #Banner {
+
+        margin-left: 5em;
+        padding: 20px;
+      }
+      #steward1 {
+        width:1000px;
+        height: 400px;
+
+      }
+
+
+}
+
+@media only screen and (min-width:1680px) {
+    .dropdown{
+        gap:22%;
+
+    }
+
+    #Banner {
+
+        margin-left: 15em;
+        padding: 20px;
+      }
+      #steward1 {
+        width:1000px;
+        height: 400px;
+
+      }
+
+      #spanQuote
+      {
+        margin-top: 70px;
+      }
+}
+
+
+@media only screen and (min-width:1920px) {
+
+    .carousel-caption h1
+    {
+        font-size: 4em;
+    }
+
+    .dropdown{
+        gap:24%;
+
+    }
+
+
+    #searchBtn1
+    {
+        font-size: 25px;
+        width: 85%;
+        height: 70%;
+        margin-inline: 5%;
+
+    }
+
+    #Banner {
+
+        margin-left: 15em;
+        padding: 20px;
+      }
+      #steward1 {
+        width:1000px;
+        height: 400px;
+
+      }
+
+
+
+}
+
+
+@media only screen and (min-width:2560px) {
+
+    .carousel-caption h1
+    {
+        font-size: 5em;
+    }
+
+    .dropdown{
+        gap:21%;
+
+        padding-bottom: 30px;
+    }
+
+    #dropdownMenuButton
+    {
+        /* width: 10%; */
+        height: 10%;
+        font-size: 30px;
+    }
+
+    #roundTripBtn
+    {
+        width: 9%;
+        font-size: 35px;
+    }
+
+    #fromAndTo
+    {
+        padding-inline: 3%;
+        width: 40%;
+    }
+
+    #departAndreturn
+    {
+        width: 40%;
+        padding-inline: 3%;
+    }
+
+
+    #searchBtn1
+    {
+        font-size: 35px;
+        width: 85%;
+        height: 70%;
+        margin-inline: 5%;
+
+    }
+
+    #Banner {
+
+        margin-left: 30em;
+        padding: 30px;
+      }
+      #steward1 {
+        width:1000px;
+        height: 400px;
+
+      }
+}
+
+@media only screen and (min-width: 3840px) {
+
+    .carousel-caption h1
+    {
+        font-size: 10em;
+    }
+
+    .dropdown{
+        gap:28.5%;
+
+    }
+
+    #dropdownMenuButton
+    {
+        /* width: 10%; */
+        height: 10%;
+        font-size: 30px;
+    }
+
+    #roundTripBtn
+    {
+        width: 9%;
+        font-size: 35px;
+    }
+
+    #fromAndTo
+    {
+        padding-inline: 3%;
+        width: 40%;
+    }
+
+    #departAndreturn
+    {
+        width: 40%;
+        padding-inline: 3%;
+    }
+
+
+
+    #searchBtn1
+    {
+        font-size: 35px;
+        width: 85%;
+        height: 70%;
+        margin-inline: 5%;
+
+    }
+
+    #Banner {
+
+        padding: 100px;
+        margin-left: 30em;
+      }
+
+      #quote {
+        font-size: 3.5rem;
+        color: #00204A;;
+
+      }
+
+      #steward1 {
+        width:900px;
+        height: 700px;
+
+      }
+
+
+}

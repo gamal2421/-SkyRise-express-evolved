@@ -1,0 +1,150 @@
+* {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  background: linear-gradient(to right, #003355, #0171BB);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.nav-link:hover {
+  color: #FFAD4D !important;
+}
+
+.logo {
+  height: 2em;
+  margin: 5px;
+}
+
+a {
+  text-decoration: none;
+}
+
+footer {
+  background: linear-gradient(to right, #003355, #0171BB);
+}
+
+footer p,
+footer ul {
+  font-size: 0.9rem;
+}
+
+.flight-info {
+  background-color: #fff;
+  padding: 20px;
+  margin-top: 80px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.flight-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 15px;
+}
+
+.flight-time {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.departure, .arrival {
+  text-align: center;
+}
+
+.departure p, .arrival p {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.departure span, .arrival span {
+  font-size: 1rem;
+  color: gray;
+}
+
+.flight-duration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dotted-line {
+  border-top: 1px dotted red;
+  width: 30px;
+}
+
+.flight-duration .duration-text {
+  color: red;
+  font-size: 1rem;
+  margin: 0 10px;
+}
+
+.flight-duration i {
+  font-size: 1.5rem;
+  color: red;
+  transform: rotate(90deg);
+}
+
+i.fas.fa-plane-departure, i.fas.fa-plane-arrival {
+  font-size: 1.5rem;
+}
+
+.passenger-details {
+  background-color: #fff;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.passenger-details h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.passenger-details .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.passenger-details .col-md-6 {
+  flex: 1 1 45%;
+  min-width: 250px;
+}
+
+.contact-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+}
+
+.contact-info .col-md-6 {
+  flex: 1 1 45%;
+  min-width: 250px;
+}
+
+.btn-primary,
+.btn-danger {
+  width: 200px;
+  height: 50px;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+}

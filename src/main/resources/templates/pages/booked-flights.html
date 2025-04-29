@@ -1,0 +1,339 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Info and Passenger Form</title>
+    <link rel="stylesheet" href="../styles/booked-flights.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg px-sm-5 px-3 fixed-top navbar-dark" id="navbar">
+        <img src="../images/noblesky-logo.png" class="logo d-none d-md-block mx-3" alt="noblesky-logo">
+        <a class="navbar-brand fw-bold text-white" href="../index.html">NobleSky Express</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarnav" aria-controls="navbarnav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarnav">
+            <ul class="navbar-nav ms-sm-auto fw-normal">
+                <li class="nav-item mx-3">
+                    <a class="nav-link text-white" href="../index.html">Home</a>
+                </li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link text-white" href="./about.html">About</a>
+                </li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link text-white" href="./user-home.html">Manage</a>
+                </li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link text-white" href="../index.html"><i class="fa-solid fa-user px-2"></i>Log out</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Flight Details Section -->
+    <section class="container flight-info">
+        <div id="FlightCard" class="shadow mx-sm-5 mx-2 mb-2 p-4 d-flex flex-column flex-lg-row  align-items-center justify-content-between">
+            <div>
+              <p class="h5">Tue, Aug 27, 2033</p>
+              <div class="d-flex align-items-center ">
+                <div class="text-center mx-3">
+                  <p class="mb-0">7:45 pm</p>
+                  <small class="text-muted">MNL</small>
+                  <img src="../images/Airplane Take Off.png">
+                </div>
+                <div class="d-flex align-items-center">
+                  <img class="d-none d-sm-block" src="../images/Line 2.png" alt="Line 2"/>
+                  <small class="text-danger d-none d-sm-block">1h 5m</small>
+                  <img  src="../images/Line 1.png" alt="Line 1"/>
+                </div>
+                <div class="text-center mx-3">
+                  <p class="mb-0">7:50 pm</p>
+                  <small class="tex t-muted">TKY</small>
+                  <img src="../images/Airplane Landing.png">
+                </div>
+              </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-center">
+              <img class="pt-3" src="../images/Airport.png">
+              <p class="my-3 pt-sm-3">jrd009</p>
+            </div>
+            <div class="d-flex align-items-center">
+              <p class="fw-bold m-4 pt-3">2 Adult</p>
+            </div>
+          </div>
+    </section>
+
+    <section class="container form-section">
+        <hr>
+        <h3 class="my-4">
+            <i class="fa-solid fa-users-between-lines me-3"></i>Passenger Details
+        </h3>
+        <h5 class="mb-4">Passenger 1(Adult)</h5>
+        <form class="needs-validation" novalidate>
+            <div class="passenger-info">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName" required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" id="dateOfBirth" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="nationality" class="form-label">Nationality</label>
+                        <select id="nationality" class="form-select" required>
+                            <option value="">Select Nationality</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <hr class="my-4">
+
+                <h5>Passport Information (Optional)</h5>
+
+                <div class="row pt-3">
+                    <div class="col-md-4 mb-3">
+                        <label for="passportNo" class="form-label">Passport Number</label>
+                        <input type="number" class="form-control" id="passportNo">
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="country" class="form-label">Country of Issue</label>
+                        <select id="country" class="form-select">
+                            <option value="">Country</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="expirationDate" class="form-label">Expiration Date</label>
+                        <input type="date" class="form-control" id="expirationDate">
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                <h5>Contact Information</h5>
+
+                <div class="row pt-3">
+                    <div class="col-4 col-md-2 mb-3">
+                        <label for="countryCode" class="form-label">Country Code</label>
+                        <select id="countryCode" class="form-select">
+                            <option value=""></option>
+                        </select>
+                    </div>
+
+                    <div class="col-8 col-md-4 mb-3">
+                        <label for="mobileNo" class="form-label">Mobile Number</label>
+                        <input type="number" class="form-control" id="mobileNo" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="emailAddress" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="emailAddress" required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="retypeEmail" class="form-label">Retype Email</label>
+                        <input type="email" class="form-control" id="retypeEmail" required>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4">
+            <h5 class="mb-4">Passenger 2(Adult)</h5>
+            <!-- Repeat Passenger 1 Structure for Passenger 2 -->
+            <div class="passenger-info">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName" required>
+                    </div>
+    
+                    <div class="col-md-4 mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" required>
+                    </div>
+
+                    
+                    <div class="col-md-4 mb-3">
+                        <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" id="dateOfBirth" required>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="nationality" class="form-label">Nationality</label>
+                        <select id="nationality" class="form-select" required>
+                            <option value="">Select Nationality</option>
+                        </select>
+                    </div>
+                </div>
+    
+    
+                <hr class="my-4">
+    
+                <h5>Passport Information (Optional)</h5>
+    
+                <div class="row pt-3">
+                    <div class="col-md-4 mb-3">
+                        <label for="passportNo" class="form-label">Passport Number</label>
+                        <input type="number" class="form-control" id="passportNo">
+                    </div>
+    
+                    <div class="col-md-4 mb-3">
+                        <label for="country" class="form-label">Country of Issue</label>
+                        <select id="country" class="form-select">
+                            <option value="">Country</option>
+                        </select>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="expirationDate" class="form-label">Expiration Date</label>
+                        <input type="date" class="form-control" id="expirationDate">
+                    </div>
+                </div>
+    
+                <hr class="my-4">
+    
+                <h5>Contact Information</h5>
+    
+                <div class="row pt-3">
+                    <div class="col-4 col-md-2 mb-3">
+                        <label for="countryCode" class="form-label">Country Code</label>
+                        <select id="countryCode" class="form-select">
+                            <option value=""></option>
+                        </select>
+                    </div>
+    
+                    <div class="col-8 col-md-4 mb-3">
+                        <label for="mobileNo" class="form-label">Mobile Number</label>
+                        <input type="number" class="form-control" id="mobileNo" required>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="emailAddress" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="emailAddress" required>
+                    </div>
+    
+                    <div class="col-md-4 mb-3">
+                        <label for="retypeEmail" class="form-label">Retype Email</label>
+                        <input type="email" class="form-control" id="retypeEmail" required>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4">
+            <h5>Additional Baggage Allowance</h5>
+            <div class="row g-3 ms-md-4 ms-0">
+                <div class="col-12 col-md-8">
+                    <div class="border p-3">
+                        <h6>Personal Item</h6>
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-briefcase fa-2x fa-bag"></i>
+                            <p class="border rounded-pill px-3 py-1 text-center mx-3">Included</p>
+                            <p>Purse, small backpack, briefcase</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-8">
+                    <div class="border p-3">
+                        <h6>Carry-on Baggage</h6>
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-suitcase fa-2x fa-bag"></i>
+                            <p class="border rounded-pill px-3 py-1 text-center mx-3">Included</p>
+                            <p>1 piece x 7 kg <br>Fits in overhead bin or under the seat</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-8">
+                    <div class="border p-3">
+                        <h6>Checked Baggage</h6>
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-suitcase-rolling fa-3x fa-bag"></i>
+                            <p class="border rounded-pill px-3 py-1 text-center mx-3">Not Included</p>
+                            <div class="dropdown ms-auto">
+                                <button class="btn btn-primary custom-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Add
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end custom-dropdown" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" href="#">No Extra Baggage</a></li>
+                                    <li><a class="dropdown-item" href="#">10 kg - Price</a></li>
+                                    <li><a class="dropdown-item" href="#">20 kg - Price</a></li>
+                                    <li><a class="dropdown-item" href="#">30 kg - Price</a></li>
+                                    <li><a class="dropdown-item" href="#">40 kg - Price</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4">
+            <!-- Checkbox Group -->
+            <div class="row">
+                <div class="col-12 d-flex align-items-center mb-2">
+                    <input type="checkbox" id="checkbox1" class="me-3">
+                    <label for="checkbox1" class="form-check-label">
+                        I have read and understood the <a href="#">Terms and Conditions</a> of Mabuhay Miles and the <a href="#">Data Privacy Policy</a> of NobleSky Express Airlines.
+                    </label>
+                </div>
+                <div class="col-12 d-flex align-items-center">
+                    <input type="checkbox" id="checkbox2" class="me-3">
+                    <label for="checkbox2" class="form-check-label">
+                        I would like to sign up for marketing emails from Mabuhay Miles and NobleSky Express Airlines.
+                    </label>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-container d-flex justify-content-center justify-content-md-end m-4">
+                <button type="submit" class="btn btn-primary me-2">Save</button>
+                <button type="button" class="btn btn-danger">Cancel Flight</button>
+            </div>
+        </form>
+    </section>
+
+     <!-- FOOTER -->
+  <footer class="text-white d-flex px-md-5 px-3 p-4">
+    <div class="col-md-5 col-12">
+      <p class="fw-bold fs-5">Contact Us</p>
+      <p>We'd  love to hear from you! Whether you have a question, need assistance, or want to share your travel experiences, feel free to reach out to us:</p>
+      <ul>
+        <li>Email: support@nobleskyexpress.com</li>
+        <li>Phone: +639-497-1233-456</li>
+        <li>Address: 123 Travel Ave., Quezon City, Philippines</li>
+        <li>Social Media: Follow us on Facebook, Twitter, and Instagram for the latest updates and travel tips.</li>
+      </ul>
+    </div>
+  </footer>
+  <!-- FOOTER -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

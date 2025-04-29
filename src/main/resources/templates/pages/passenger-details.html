@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Passenger Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../styles/passenger-details.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Passenger Details</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg px-sm-5 px-3 fixed-top navbar-dark" id="navbar">
+        <img src="../images/noblesky-logo.png" class="logo d-none d-md-block mx-3" alt="noblesky-logo">
+        <a class="navbar-brand fw-bold text-white" href="../index.html">NobleSky Express</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarnav" aria-controls="navbarnav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarnav">
+            <ul class="navbar-nav ms-sm-auto fw-normal">
+                <li class="nav-item mx-3">
+                    <a class="nav-link text-white" href="../index.html">Home</a>
+                </li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link text-white" href="./about.html">About</a>
+                </li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link text-white" href="./user-home.html">Manage</a>
+                </li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link text-white" href="../index.html"><i class="fa-solid fa-user px-2"></i>Log out</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section class="container ">
+        <div class="container flight-search">
+            <h2 class=""><i class="fa-solid fa-plane-up"></i> Flight Search</h2>
+            <div class="row card shadow p-1">
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="d-md-flex col-xs-12 col-md-6 justify-content-md-end text-sm-end pt-1 pb-1">
+                            <select class="form-select py-0" id="flightType" aria-label="Floating label select example">
+                                <option selected value="one-way" class="">One way</option>
+                                <option value="round-trip">Round trip</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6 px-auto">
+                                            <div class="my-md-2">
+                                                <label for="exampleFormControlInput1" class="form-label m-0">From</label>
+                                                <input type="email" class="form-control py-1" id="exampleFormControlInput1" placeholder="name@example.com">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 px-auto">
+                                            <div class="my-md-2">
+                                                <label for="exampleFormControlInput1" class="form-label m-0">To</label>
+                                                <input type="email" class="form-control py-1" id="exampleFormControlInput1" placeholder="name@example.com">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 px-auto mt-sm-4 mt-md-0">
+                                            <!-- <hr class="sm-show"> -->
+                                            <div class="mb-md-4 mt-md-2">
+                                                <label for="exampleFormControlInput1" class="form-label m-0">Depart</label>
+                                                <input type="email" class="form-control py-1" id="exampleFormControlInput1" placeholder="name@example.com">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 px-auto">
+                                            <div class="mb-md-4 mt-md-2">
+                                                <label for="exampleFormControlInput1" class="form-label m-0">Return</label>
+                                                <input type="email" class="form-control py-1" id="exampleFormControlInput1" placeholder="name@example.com">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6 px-auto mt-sm-4 mt-md-0">
+                                            <!-- <hr class="sm-show"> -->
+                                            <div class="my-md-2">
+                                                <label for="selectCabinClass" class="form-label m-0">Cabin Class</label>
+                                                <select class="form-select py-1" id="selectCabinClass" aria-label="Floating label select example">
+                                                    <option selected value="economy">Economy</option>
+                                                    <option value="business">Business</option>
+                                                    <option value="premium">Business Premium</option>
+                                                    <option value="first-class">First Class</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6 px-auto">
+                                            <div class="mb-md-4 mt-md-2">
+                                                <label for="selectPassengers" class="form-label m-0">Passengers</label>
+                                                <select class="form-select py-1" id="selectPassengers" aria-label="Floating label select example">
+                                                    <option selected value="adult">Adult</option>
+                                                    <option value="children">Children</option>
+                                                    <option value="infant">Infant</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 d-flex justify-content-center align-items-center p-4">
+                                            <button type="button" class="btn" id="btnSearchFlight">Modify</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="progress-card  shadow container align-items-center mt-4 py-2 px-2">
+            <div class="row d-flex flex-nowrap">
+                <div class="flex-fill align-items-center d-md-flex justify-content-evenly ">
+                    <div class="circle done"><i class="fa-solid fa-plane-up"></i></div>
+                    <span class="fn ps-md-3 ps-md0-0">Flight Details</span>
+                    <div class="bar rounded-2 d-lg-block d-none done"></div>
+                </div>
+                <div class="flex-fill align-items-center d-md-flex justify-content-evenly">
+                    <div class="circle current"><i class="fa-solid fa-users-between-lines"></i></div>
+                    <span class="fn ps-md-3 ps-sm-0">Passenger Details</span>
+                    <div class="bar rounded-2 d-lg-block d-none"></div>
+                </div>
+                <div class="flex-fill align-items-center d-md-flex justify-content-evenly">
+                    <div class="circle"><i class="fa-solid fa-credit-card"></i></div>
+                    <span class="fn ps-md-3 ps-sm-0">Payment</span>
+                    <div class="bar rounded-2 d-lg-block d-none"></div>
+                </div>
+                <div class="flex-fill align-items-center d-md-flex justify-content-evenly w-50">
+                    <div class="circle"><i class="fa-solid fa-check"></i></div>
+                    <span class="fn rounded-2 ps-md-3 ps-md-0">Confrimation</span>
+                </div>
+            </div>
+        </section>
+    </section>
+    <section class="container">
+        <hr class="mt-5">
+        <h3 class="my-4">
+            <i class="fa-solid fa-users-between-lines me-3"></i>Passenger Details
+        </h3>
+        <h5 class="mb-4">Passenger 1</h5>
+        <form class="needs-validation" novalidate>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" required>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" required>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" id="dateOfBirth" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="nationality" class="form-label">Nationality</label>
+                    <select id="nationality" class="form-select" required>
+                        <option value="">Select Nationality</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <hr class="my-4">
+
+            <h5>Passport Information (Optional)</h5>
+
+            <div class="row pt-3">
+                <div class="col-md-4 mb-3">
+                    <label for="passportNo" class="form-label">Passport Number</label>
+                    <input type="number" class="form-control" id="passportNo">
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="country" class="form-label">Country of Issue</label>
+                    <select id="country" class="form-select">
+                        <option value="">Country</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="expirationDate" class="form-label">Expiration Date</label>
+                    <input type="date" class="form-control" id="expirationDate">
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <h5>Contact Information</h5>
+
+            <div class="row pt-3">
+                <div class="col-4 col-md-2 mb-3">
+                    <label for="countryCode" class="form-label">Country Code</label>
+                    <select id="countryCode" class="form-select">
+                        <option value=""></option>
+                    </select>
+                </div>
+
+                <div class="col-8 col-md-4 mb-3">
+                    <label for="mobileNo" class="form-label">Mobile Number</label>
+                    <input type="number" class="form-control" id="mobileNo" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="emailAddress" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="emailAddress" required>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="retypeEmail" class="form-label">Retype Email</label>
+                    <input type="email" class="form-control" id="retypeEmail" required>
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <h5>Additional Baggage Allowance</h5>
+            <div class="row g-3 ms-md-4 ms-0">
+
+                <div class="col-12 col-md-8">
+                    <div class="border p-3">
+                        <h6>Personal Item</h6>
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-briefcase fa-2x fa-bag"></i>
+                            <p class="border rounded-pill px-3 py-1 text-center mx-3">Included</p>
+                            <p>Purse, small backpack, briefcase</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-8">
+                    <div class="border p-3">
+                        <h6>Carry-on Baggage</h6>
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-suitcase fa-2x fa-bag"></i>
+                            <p class="border rounded-pill px-3 py-1 text-center mx-3">Included</p>
+                            <p>1 piece x 7 kg <br>Fits in overhead bin or under the seat</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-8">
+                    <div class="border p-3">
+                        <h6>Checked Baggage</h6>
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-suitcase-rolling fa-3x fa-bag"></i>
+                            <p class="border rounded-pill px-3 py-1 text-center mx-3">Not Included</p>
+                            <div class="dropdown ms-auto">
+                                <button class="btn btn-primary custom-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Add
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end custom-dropdown" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" href="#">No Extra Baggage</a></li>
+                                    <li><a class="dropdown-item" href="#">10 kg - Price</a></li>
+                                    <li><a class="dropdown-item" href="#">20 kg - Price</a></li>
+                                    <li><a class="dropdown-item" href="#">30 kg - Price</a></li>
+                                    <li><a class="dropdown-item" href="#">40 kg - Price</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr class="my-4">
+
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="termsCheck" required>
+                        <label class="form-check-label" for="termsCheck">
+                            I agree to the <a href="#">terms and conditions</a> and the <a href="#">Data Privacy Policy</a> of NobleSky Express Airlines
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-12 d-flex justify-content-center justify-content-md-end">
+                    <a href="./Payment.html">
+                        <button class="btn btn-primary my-4 save-btn" type="button" >Save & Continue</button>
+                    </a>
+                </div>
+            </div>
+
+        </form>
+    </section>
+    <!-- FOOTER -->
+    <footer class="text-white d-flex px-md-5 px-3 p-4">
+        <div class="col-md-5 col-12">
+            <p class="fw-bold fs-5">Contact Us</p>
+            <p>We'd  love to hear from you! Whether you have a question, need assistance, or want to share your travel experiences, feel free to reach out to us:</p>
+            <ul>
+                <li>Email: support@nobleskyexpress.com</li>
+                <li>Phone: +639-497-1233-456</li>
+                <li>Address: 123 Travel Ave., Quezon City, Philippines</li>
+                <li>Social Media: Follow us on Facebook, Twitter, and Instagram for the latest updates and travel tips.</li>
+            </ul>
+        </div>
+    </footer>
+    <!-- FOOTER -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+
+        const addButton = document.getElementById('dropdownMenuButton');
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+    
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', function(event) {
+                event.preventDefault(); 
+                const selectedOption = this.textContent;
+                addButton.textContent = selectedOption; 
+            });
+        });
+    </script>
+</body>
+</html>

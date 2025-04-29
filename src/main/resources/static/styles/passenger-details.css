@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+}
+/* NAVBAR */
+nav {
+    background: linear-gradient(to right, #003355, #0171BB);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.nav-link:hover {
+    color: #FFAD4D !important;
+}
+
+.logo {
+    height: 2em;
+    margin: 5px;
+}
+a {
+    text-decoration: none;
+}
+
+/* NAVBAR */
+/*FOOTER*/
+footer {
+    background: linear-gradient(to right, #003355, #0171BB);
+}
+
+footer p,
+footer ul {
+    font-size: .9rem;
+}
+/*FOOTER*/
+
+/* PROGRESS */
+
+.progress-card {
+    padding: 10px;
+    margin-top: 10px;
+    min-height: 50px;
+    border: 1px solid #dfdfdf;
+    border-radius: 10px;
+}
+.circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 2px solid #235477;
+    color: #235477;
+}
+.bar {
+    width: 130px;
+    border: 1px solid #d9d9d9;
+}
+.current,
+.bar-current {
+    border: 3px solid #ffad4c;
+}
+.done {
+    border: 3px solid #65ff4c;
+}
+.fn{
+    font-weight: 600;
+    color:#235477;
+}
+
+/* SELECT FLIGHT */
+.flight-search {
+    margin-top: 80px;
+}
+
+label, h2, h3, h5, .flight-search i{
+    color:#00204A;
+    font-weight: 700;
+}
+
+.form-control, .form-select {
+    background-color: #ededed;
+}
+
+.form-control, .form-select {
+    border: 1px solid transparent;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border: 1px solid #1b6fa6;
+}
+.card {
+    border-radius: 10px ;
+}
+
+#flightType {
+    font-weight: 700;
+    color:#fff;
+    background-color:#1b6fa6;
+}
+#btnSearchFlight {
+    font-weight: 700;
+    color:#fff;
+    background-color: #1b6fa6;
+    width: 15rem;
+    height: 2.5rem;
+}
+
+.fa-bag {
+    color: #003355;
+}
+
+.custom-btn {
+    width: 175px;
+}
+
+.custom-dropdown {
+    width: 175px;
+    border-radius: 0.5rem;
+}
+
+.custom-dropdown .dropdown-item {
+    padding: .5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.custom-dropdown .dropdown-item:hover {
+    background-color: #D9D9D9;
+    color: #0056b3;
+}
+
+.save-btn {
+    width: 200px;
+    height: 50px;
+    font-size: 1rem;
+    padding: .75rem 1.5rem;
+}
+
+@media screen and (min-width: 768px) {
+    #flightType {
+        width: 150px;
+    }
+}

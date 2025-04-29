@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NobleSky | Blog</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../styles/user-page.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+  <style>
+    .carousel-item img {
+      height: 70vh;
+      object-fit: cover;
+    }
+
+    .carousel-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .carousel-overlay h2, .carousel-overlay p {
+      color: white;
+    }
+
+    .scroll-down {
+      margin-top: -50px;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg px-sm-5 px-3 fixed-top" id="navbar">
+    <img src="../images/noblesky-logo.png" class="logo d-none d-md-block mx-3" alt="noblesky-logo">
+    <a class="navbar-brand fw-bold text-white" href="../index.html">NobleSky Express</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarnav" aria-controls="navbarnav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarnav">
+      <ul class="navbar-nav ms-sm-auto fw-normal">
+        <li class="nav-item mx-3"><a class="nav-link text-white" href="../index.html">Home</a></li>
+        <li class="nav-item mx-3"><a class="nav-link text-white" href="./about.html">About</a></li>
+        <li class="nav-item mx-3"><a class="nav-link text-white" href="./user-home.html">Manage</a></li>
+        <li class="nav-item mx-3"><a class="nav-link text-white" href="../index.html"><i class="fa-solid fa-user px-2"></i>Log out</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- NAVBAR END -->
+
+  <!-- Carousel Section -->
+  <main>
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+
+        <div class="carousel-item active position-relative">
+          <img src="../images/japan.jpg" class="d-block w-100" alt="Japan">
+          <div class="carousel-overlay">
+            <h2 class="display-4 fw-bold mb-3">Book Your Next Adventure</h2>
+            <p class="lead mb-4">Discover top destinations, unbeatable fares, and world-class comfort.</p>
+            <a href="#flightBooked" class="btn btn-lg btn-primary px-5">View Flights</a>
+          </div>
+        </div>
+
+        <div class="carousel-item position-relative">
+          <img src="../images/venice.jpg" class="d-block w-100" alt="Venice">
+          <div class="carousel-overlay">
+            <h2 class="display-4 fw-bold mb-3">Travel Beyond Horizons</h2>
+            <p class="lead mb-4">Every journey begins with a single click.</p>
+            <a href="#flightBooked" class="btn btn-lg btn-primary px-5">Explore</a>
+          </div>
+        </div>
+
+        <div class="carousel-item position-relative">
+          <img src="../images/India.jpg" class="d-block w-100" alt="India">
+          <div class="carousel-overlay">
+            <h2 class="display-4 fw-bold mb-3">Explore the World with Us</h2>
+            <p class="lead mb-4">Fly farther, experience more.</p>
+            <a href="#flightBooked" class="btn btn-lg btn-primary px-5">Start Now</a>
+          </div>
+        </div>
+
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <!-- Scroll Down Prompt -->
+    <div class="text-center scroll-down">
+      <a href="#flightBooked">
+        <i class="fa-solid fa-angles-down fa-2x text-primary"></i>
+      </a>
+    </div>
+  </main>
+
+  <!-- Flights Booked -->
+  <div class="justify-content-center my-4">
+    <div>
+      <h2 class="text-center mb-4" id="flightBooked">Flights Booked</h2>
+
+      <!-- Flight Card 1 -->
+      <div id="FlightCard" class="shadow mx-sm-5 mx-2 mb-2 p-4 d-flex flex-column flex-lg-row align-items-center justify-content-between">
+        <div>
+          <p class="h5">Tue, Aug 27, 2033</p>
+          <div class="d-flex align-items-center">
+            <div class="text-center mx-3">
+              <p class="mb-0">7:45 pm</p>
+              <small class="text-muted">MNL</small>
+              <img src="../images/Airplane Take Off.png">
+            </div>
+            <div class="d-flex align-items-center">
+              <img class="d-none d-sm-block" src="../images/Line 2.png" alt="Line 2"/>
+              <small class="text-danger d-none d-sm-block">1h 5m</small>
+              <img src="../images/Line 1.png" alt="Line 1"/>
+            </div>
+            <div class="text-center mx-3">
+              <p class="mb-0">7:50 pm</p>
+              <small class="text-muted">TKY</small>
+              <img src="../images/Airplane Landing.png">
+            </div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-center">
+          <img class="pt-3" src="../images/Airport.png">
+          <p class="my-3 pt-sm-3">jrd009</p>
+        </div>
+        <div class="d-flex align-items-center">
+          <p class="fw-bold m-4 pt-3">2 Adult</p>
+        </div>
+        <div class="d-flex align-items-center pt-sm-3">
+          <a href="./booked-flights.html">
+            <button id="detailsbtn" class="btn btn-primary">Details</button>
+          </a>
+        </div>
+      </div>
+
+      <!-- Flight Card 2 -->
+      <div id="FlightCard" class="shadow mx-sm-5 mx-2 mb-2 p-4 d-flex flex-column flex-lg-row align-items-center justify-content-between">
+        <div>
+          <p class="h5">Tue, Aug 31, 2033</p>
+          <div class="d-flex align-items-center">
+            <div class="text-center mx-3">
+              <p class="mb-0">7:45 pm</p>
+              <small class="text-muted">TKY</small>
+              <img src="../images/Airplane Take Off.png">
+            </div>
+            <div class="d-flex align-items-center">
+              <img class="d-none d-sm-block" src="../images/Line 2.png" alt="Line 2"/>
+              <small class="text-danger d-none d-sm-block">1h 5m</small>
+              <img src="../images/Line 1.png" alt="Line 1"/>
+            </div>
+            <div class="text-center mx-3">
+              <p class="mb-0">7:50 pm</p>
+              <small class="text-muted">MNL</small>
+              <img src="../images/Airplane Landing.png">
+            </div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-center">
+          <img class="pt-3" src="../images/Airport.png">
+          <p class="my-3 pt-sm-3">jrd009</p>
+        </div>
+        <div class="d-flex align-items-center">
+          <p class="fw-bold m-4 pt-3">2 Adult</p>
+        </div>
+        <div class="d-flex align-items-center pt-sm-3">
+          <a href="./booked-flights.html">
+            <button id="detailsbtn" class="btn btn-primary">Details</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="text-white d-flex px-md-5 px-3 p-4 bg-dark">
+    <div class="col-md-5 col-12">
+      <p class="fw-bold fs-5">Contact Us</p>
+      <p>We'd love to hear from you! Whether you have a question, need assistance, or want to share your travel experiences, feel free to reach out:</p>
+      <ul>
+        <li>Email: support@nobleskyexpress.com</li>
+        <li>Phone: +639-497-1233-456</li>
+        <li>Address: 123 Travel Ave., Quezon City, Philippines</li>
+        <li>Social Media: Follow us on Facebook, Twitter, and Instagram for the latest updates.</li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://kit.fontawesome.com/f77fb5b473.js" crossorigin="anonymous"></script>
+</body>
+</html>
