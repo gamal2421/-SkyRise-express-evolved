@@ -1,6 +1,7 @@
 package com.SkyRise.SkyRise_express.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +18,7 @@ public class User {
     private Long userId;
     
     private String fullName;
-    private Date dob;
+    private LocalDate dob;
     
     @Column(unique = true)
     private String email;
@@ -47,11 +48,11 @@ public class User {
         this.fullName = fullName;
     }
 
-    public Date getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 

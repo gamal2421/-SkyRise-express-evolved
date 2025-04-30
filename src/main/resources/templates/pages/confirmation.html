@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation | NobleSky Express</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #235477;
+            --secondary: #ffad4c;
+            --success: #28a745;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .confirmation-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: none;
+        }
+        .confirmation-header {
+            background: linear-gradient(to right, #003355, #0171BB);
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+        }
+        .success-icon {
+            color: var(--success);
+            font-size: 4rem;
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+       <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(to right, #003355, #0171BB);">
+        <div class="container">
+            <a class="navbar-brand fw-bold" th:href="@{/}">NobleSky Express</a>
+            <div class="d-flex">
+                <a class="btn btn-outline-light" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <!-- Confirmation Card -->
+        <div class="card confirmation-card mb-4">
+            <div class="card-header confirmation-header">
+                <h4 class="mb-0"><i class="fas fa-check-circle me-2"></i> Booking Confirmed</h4>
+            </div>
+            <div class="card-body text-center py-5">
+                <div class="success-icon mb-4">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2 class="text-success mb-3">Thank You for Your Booking!</h2>
+                <p class="lead">Your flight has been successfully booked.</p>
+                <p th:if="${booking?.user?.email != null}">
+                    An email confirmation has been sent to <strong th:text="${booking.user.email}"></strong>
+                </p>
+                
+                <div class="alert alert-primary mt-4">
+                    <h5>Your E-Ticket Number: <span class="fw-bold" th:text="${booking.eTicketNumber}"></span></h5>
+                    <p>Please keep this number for your records and present it at check-in.</p>
+                </div>
+                
+                <div class="row mt-5">
+                    <div class="col-md-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0"><i class="fas fa-plane me-2"></i> Flight Details</h5>
+                            </div>
+                        <div class="card-body">
+    <p class="mb-2"><strong th:text="${booking.flight?.flightNumber}"></strong></p>
+    <p class="mb-2" th:text="|From: ${booking.flight?.fromAirport}|"></p>
+    <p class="mb-2" th:text="|To: ${booking.flight?.toAirport}|"></p>
+<p class="mb-2" 
+  th:text="${formattedDepartureDate}">
+</p>    <!-- If you have time fields, add them like this: -->
+ <p class="mb-0" 
+  th:text="${formattedDepartureDate}">
+</p>
+</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0"><i class="fas fa-user me-2"></i> Passenger Details</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-2"><strong th:text="${booking.user.fullName}"></strong></p>
+                                <p class="mb-2" th:text="${booking.user.email}"></p>
+                                <p class="mb-2" th:text="${booking.user.phone}"></p> <!-- Changed from phoneNumber to phone -->
+                                <p class="mb-0">Class: <span th:text="${booking.classType}"></span></p>
+                                <p class="mb-0" th:if="${booking.seatNumber != null}">Seat: <span th:text="${booking.seatNumber}"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+                    <a th:href="@{/}" class="btn btn-primary btn-lg px-4 me-md-2">
+                        <i class="fas fa-home me-2"></i> Back to Home
+                    </a>
+                    <a href="#" class="btn btn-outline-primary btn-lg px-4">
+                        <i class="fas fa-print me-2"></i> Print Ticket
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>NobleSky Express</h5>
+                    <p>Your trusted partner for comfortable and reliable air travel.</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope me-2"></i> support@nobleskyexpress.com</li>
+                        <li><i class="fas fa-phone me-2"></i> +639-497-1233-456</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

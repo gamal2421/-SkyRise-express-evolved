@@ -65,14 +65,22 @@ public String searchFlights(
         String fromAirport = from.trim().toUpperCase();
         String toAirport = to.trim().toUpperCase();
 
-        // 3. Search for flights
+        // 3. Get all distinct airports for the dropdown
+        List<String> airports = Stream.concat(
+                flightRepository.findDistinctFromAirports().stream(),
+                flightRepository.findDistinctToAirports().stream())
+                .distinct()
+                .sorted()
+                .toList();
+
+        // 4. Search for flights
         List<Flight> departingFlights = flightRepository
                 .findByFromAirportAndToAirportAndDepartureDate(
                     fromAirport, 
                     toAirport, 
                     depDate);
 
-        // 4. Handle return flights if round-trip
+        // 5. Handle return flights if round-trip
         List<Flight> returningFlights = null;
         if ("round-trip".equalsIgnoreCase(tripType) && returnDate != null && !returnDate.isEmpty()) {
             Date retDate = dateFormat.parse(returnDate);
@@ -83,9 +91,10 @@ public String searchFlights(
                             retDate);
         }
 
-        // 5. Prepare model attributes
+        // 6. Prepare model attributes
         model.addAttribute("departingFlights", departingFlights != null ? departingFlights : Collections.emptyList());
         model.addAttribute("returningFlights", returningFlights != null ? returningFlights : Collections.emptyList());
+        model.addAttribute("airports", airports);
         
         model.addAttribute("searchParams", Map.of(
             "from", from,
@@ -96,18 +105,7 @@ public String searchFlights(
             "fromCity", from,
             "toCity", to
         ));
-           System.out.println("First flight details:");
-        if (!departingFlights.isEmpty()) {
-            Flight firstFlight = departingFlights.get(0);
-            System.out.println("Departure Time: " + firstFlight.getDepartureTime());
-            System.out.println("Departure Time Class: " + 
-                (firstFlight.getDepartureTime() != null ? 
-                 firstFlight.getDepartureTime().getClass() : "null"));
-        }
-System.out.println("Searching for flights from: " + fromAirport + 
-                  " to: " + toAirport + 
-                  " on: " + depDate);
-System.out.println("Found " + departingFlights.size() + " departing flights");
+
     } catch (ParseException e) {
         model.addAttribute("error", "Invalid date format. Please use YYYY-MM-DD format.");
     } catch (Exception e) {

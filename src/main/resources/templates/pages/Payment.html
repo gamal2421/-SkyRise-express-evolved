@@ -1,280 +1,240 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="../styles/payment.css">
-    <title>NobleSky Express Payment</title>
+    <title>Payment | NobleSky Express</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #235477;
+            --secondary: #ffad4c;
+            --success: #28a745;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .payment-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: none;
+        }
+        .payment-header {
+            background: linear-gradient(to right, #003355, #0171BB);
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+        }
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem rgba(35, 84, 119, 0.25);
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+        }
+        .card-icon {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+    </style>
 </head>
 <body>
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg px-sm-5 px-3 fixed-top navbar-dark" id="navbar">
-        <img src="../images/noblesky-logo.png" class="logo d-none d-md-block mx-3" alt="noblesky-logo">
-        <a class="navbar-brand fw-bold text-white" href="../index.html">NobleSky Express</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarnav" aria-controls="navbarnav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarnav">
-            <ul class="navbar-nav ms-sm-auto fw-normal">
-                <li class="nav-item mx-3">
-                    <a class="nav-link text-white" href="../index.html">Home</a>
-                </li>
-                <li class="nav-item mx-3">
-                    <a class="nav-link text-white" href="./about.html">About</a>
-                </li>
-                <li class="nav-item mx-3">
-                    <a class="nav-link text-white" href="./user-home.html">Manage</a>
-                </li>
-                <li class="nav-item mx-3">
-                    <a class="nav-link text-white" href="../index.html"><i class="fa-solid fa-user px-2"></i>Log out</a>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(to right, #003355, #0171BB);">
+        <div class="container">
+            <a class="navbar-brand fw-bold" th:href="@{/}">NobleSky Express</a>
+            <div class="d-flex">
+                <a class="btn btn-outline-light" th:href="@{/logout}">Logout</a>
+            </div>
         </div>
     </nav>
-    <section class="container">
-        <div class="container flight-search">
-            <h2 class=""><i class="fa-solid fa-plane-up"></i> Flight Search</h2>
-            <div class="row card shadow p-1">
-                <div class="well well-sm">
-                    <div class="row">
-                        <div class="d-md-flex col-xs-12 col-md-6 justify-content-md-end text-sm-end pt-1 pb-1">
-                            <select class="form-select py-0" id="flightType" aria-label="Floating label select example">
-                                <option selected value="one-way" class="">One way</option>
-                                <option value="round-trip">Round trip</option>
-                            </select>
+
+    <div class="container py-5">
+        <!-- Progress Bar -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="text-center">
+                        <div class="circle bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="mb-0 mt-2">Flight Details</p>
+                    </div>
+                    <div class="flex-grow-1 mx-2">
+                        <hr class="my-0" style="border-top: 3px solid var(--success);">
+                    </div>
+                    <div class="text-center">
+                        <div class="circle bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="mb-0 mt-2">Passenger Details</p>
+                    </div>
+                    <div class="flex-grow-1 mx-2">
+                        <hr class="my-0" style="border-top: 3px solid var(--primary);">
+                    </div>
+                    <div class="text-center">
+                        <div class="circle bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <p class="mb-0 mt-2 fw-bold">Payment</p>
+                    </div>
+                    <div class="flex-grow-1 mx-2">
+                        <hr class="my-0" style="border-top: 3px solid #dee2e6;">
+                    </div>
+                    <div class="text-center">
+                        <div class="circle bg-light text-muted rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <p class="mb-0 mt-2">Confirmation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flight Summary -->
+        <div class="card mb-4 payment-card">
+            <div class="card-header payment-header">
+                <h4 class="mb-0"><i class="fas fa-plane me-2"></i> Flight Summary</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="text-primary">Departure Flight</h5>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="mb-1"><strong th:text="${flight.fromAirport} + ' → ' + ${flight.toAirport}"></strong></p>
+                                <p class="mb-1" th:text="${#temporals.format(flight.departureTime, 'HH:mm')} + ' - ' + ${#temporals.format(flight.arrivalTime, 'HH:mm')}"></p>
+                            </div>
+                            <div>
+                                <p class="mb-1"><strong>Flight No:</strong> <span th:text="${flight.flightNumber}"></span></p>
+                                <p class="mb-1"><strong>Class:</strong> Economy</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
+                    <div class="col-md-6">
+                        <h5 class="text-primary">Price Summary</h5>
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-1">Base Fare:</p>
+                            <p class="mb-1" th:text="'PHP ' + ${#numbers.formatDecimal(flight.basePrice, 1, 2)}"></p>
+                        </div>
+                        <hr class="my-1">
+                        <div class="d-flex justify-content-between fw-bold">
+                            <p class="mb-0">Total:</p>
+                            <p class="mb-0" th:text="'PHP ' + ${#numbers.formatDecimal(flight.basePrice, 1, 2)}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Form -->
+        <div class="card payment-card">
+            <div class="card-header payment-header">
+                <h4 class="mb-0"><i class="fas fa-credit-card me-2"></i> Payment Details</h4>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/payment/process}" method="post" class="needs-validation" novalidate>
+                    <input type="hidden" name="flightId" th:value="${flight.flightId}">
+                    
+                    <div class="mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard" checked>
+                            <label class="form-check-label fw-bold" for="creditCard">
+                                <i class="fas fa-credit-card card-icon me-2"></i> Credit/Debit Card
+                            </label>
+                        </div>
+                        
+                        <div id="cardDetails" class="mt-3">
+                            <div class="mb-3">
+                                <label for="cardNumber" class="form-label">Card Number</label>
+                                <input type="text" class="form-control" id="cardNumber" name="cardNumber" 
+                                       pattern="[0-9]{16}" required placeholder="1234 5678 9012 3456">
+                                <div class="invalid-feedback">Please enter a valid 16-digit card number</div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="cardHolder" class="form-label">Cardholder Name</label>
+                                <input type="text" class="form-control" id="cardHolder" name="cardHolder" 
+                                       required placeholder="John Doe">
+                                <div class="invalid-feedback">Please enter cardholder name</div>
+                            </div>
+                            
                             <div class="row">
-                                <div class="col-xs-12 col-md-6">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-md-6 px-auto">
-                                            <div class="my-md-2">
-                                                <label for="exampleFormControlInput1" class="form-label m-0">From</label>
-                                                <input type="email" class="form-control py-1" id="exampleFormControlInput1" placeholder="name@example.com">
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-md-6 px-auto">
-                                            <div class="my-md-2">
-                                                <label for="exampleFormControlInput1" class="form-label m-0">To</label>
-                                                <input type="email" class="form-control py-1" id="exampleFormControlInput1" placeholder="name@example.com">
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-md-6 px-auto mt-sm-4 mt-md-0">
-                                            <!-- <hr class="sm-show"> -->
-                                            <div class="mb-md-4 mt-md-2">
-                                                <label for="exampleFormControlInput1" class="form-label m-0">Depart</label>
-                                                <input type="email" class="form-control py-1" id="exampleFormControlInput1" placeholder="name@example.com">
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-md-6 px-auto">
-                                            <div class="mb-md-4 mt-md-2">
-                                                <label for="exampleFormControlInput1" class="form-label m-0">Return</label>
-                                                <input type="email" class="form-control py-1" id="exampleFormControlInput1" placeholder="name@example.com">
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="expiryDate" class="form-label">Expiry Date</label>
+                                    <input type="text" class="form-control" id="expiryDate" name="expiryDate" 
+                                           pattern="(0[1-9]|1[0-2])\/[0-9]{2}" required placeholder="MM/YY">
+                                    <div class="invalid-feedback">Please enter valid expiry date (MM/YY)</div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-md-6 px-auto mt-sm-4 mt-md-0">
-                                            <!-- <hr class="sm-show"> -->
-                                            <div class="my-md-2">
-                                                <label for="selectCabinClass" class="form-label m-0">Cabin Class</label>
-                                                <select class="form-select py-1" id="selectCabinClass" aria-label="Floating label select example">
-                                                    <option selected value="economy">Economy</option>
-                                                    <option value="business">Business</option>
-                                                    <option value="premium">Business Premium</option>
-                                                    <option value="first-class">First Class</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-12 col-md-6 px-auto">
-                                            <div class="mb-md-4 mt-md-2">
-                                                <label for="selectPassengers" class="form-label m-0">Passengers</label>
-                                                <select class="form-select py-1" id="selectPassengers" aria-label="Floating label select example">
-                                                    <option selected value="adult">Adult</option>
-                                                    <option value="children">Children</option>
-                                                    <option value="infant">Infant</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 d-flex justify-content-center align-items-center p-4">
-                                            <button type="button" class="btn" id="btnSearchFlight">Modify</button>
-                                        </div>
-                                    </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="cvv" class="form-label">CVV</label>
+                                    <input type="text" class="form-control" id="cvv" name="cvv" 
+                                           pattern="[0-9]{3,4}" required placeholder="123">
+                                    <div class="invalid-feedback">Please enter valid CVV (3-4 digits)</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-primary btn-lg px-4">
+                            <i class="fas fa-lock me-2"></i> Pay Now
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
-
-            <section class="progress-card  shadow container align-items-center mt-4 py-2 px-2">
-                <div class="row d-flex flex-nowrap">
-                    <div class="flex-fill align-items-center d-md-flex justify-content-evenly ">
-                        <div class="circle done"><i class="fa-solid fa-plane-up"></i></div>
-                        <span class="fn ps-md-3 ps-md0-0">Flight Details</span>
-                        <div class="bar rounded-2 d-lg-block d-none done"></div>
-                    </div>
-                    <div class="flex-fill align-items-center d-md-flex justify-content-evenly">
-                        <div class="circle done"><i class="fa-solid fa-users-between-lines"></i></div>
-                        <span class="fn ps-md-3 ps-sm-0">Passenger Details</span>
-                        <div class="bar rounded-2 d-lg-block d-none done"></div>
-                    </div>
-                    <div class="flex-fill align-items-center d-md-flex justify-content-evenly">
-                        <div class="circle current"><i class="fa-solid fa-credit-card"></i></div>
-                        <span class="fn ps-md-3 ps-sm-0">Payment</span>
-                        <div class="bar rounded-2 d-lg-block d-none"></div>
-                    </div>
-                    <div class="flex-fill align-items-center d-md-flex justify-content-evenly w-50">
-                        <div class="circle"><i class="fa-solid fa-check"></i></div>
-                        <span class="fn rounded-2 ps-md-3 ps-md-0">Confrimation</span>
-                    </div>
-                </div>
-            </section>
-            <hr>
-            <!-- <div class="card p-5 mt-4"> -->
-                <div class="container mt-5">
-                    <h3 class="mb-4"><i class="fa-solid fa-credit-card"></i> Select Payment Method</h3>
-                    <form>
-                        <div class="form-group">
-                            <label for="paymentMethod">Payment Method</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard" checked>
-                                <label class="form-check-label" for="creditCard">Credit/Debit Card</label>
-                            </div>
-                
-                            <div class="card-info">
-                                <div class="form-group mt-3">
-                                    <label for="cardNumber">Bank Card No.</label>
-                                    <input type="text" class="form-control" id="cardNumber" placeholder="Enter Card Number">
-                                </div>
-                
-                                <div class="form-group">
-                                    <label for="cardholderName">Cardholder Name</label>
-                                    <input type="text" class="form-control" id="cardholderName" placeholder="Enter Cardholder Name">
-                                </div>
-                
-                                <div class="form-row">
-                                    <div class="col">
-                                        <label for="expirationDate">Expiration Date</label>
-                                        <input type="text" class="form-control" id="expirationDate" placeholder="MM/YY">
-                                    </div>
-                                    <div class="col">
-                                        <label for="cvv">CVV/CVC</label>
-                                        <input type="text" class="form-control" id="cvv" placeholder="CVV">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                
-                        <div class="form-check mt-3">
-                            <input class="form-check-input" type="radio" name="paymentMethod" id="otherMethods">
-                            <label class="form-check-label" for="otherMethods">Others</label>
-                        </div>
-                
-                        <div class="form-group mt-3">
-                            <select class="form-control" id="otherOptions">
-                                <option>Select an option</option>
-                            </select>
-                        </div>
-                
-                        <div class="col-12 d-flex justify-content-center justify-content-md-end">
-                            <a href="">
-                                <button class="btn btn-primary my-4 save-btn" type="button" >Continue</button>
-                            </a>
-                        </div>
-                    </form>
-                </div>
-        <!-- </> -->
     </div>
-    </section>
-    <!-- NAVBAR END -->
-    <!--
-    <nav class="navbar navbar-expand-lg px-sm-5 px-3 fixed-top" id="navbar">
-        <img src="../images/noblesky-logo.png" class="logo d-none d-md-block mx-3" alt="noblesky-logo">
-        <a class="navbar-brand fw-bold text-white" href="/index.html">NobleSky Express</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarnav" aria-controls="navbarnav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ms-sm-auto fw-normal">
-                <li class="nav-item mx-3">
-                    <a class="nav-link text-white" href="/index.html">Home</a>
-                </li>
-                <li class="nav-item mx-3">
-                    <a class="nav-link text-white" href="/pages/about.html">About</a>
-                </li>
-                <li class="nav-item mx-3">
-                    <a class="nav-link text-white" href="/pages/user-home.html">Manage</a>
-                </li>
-                <li class="nav-item mx-3">
-                    <a class="nav-link text-white" href="/pages/user-home.html"><i class="fa-solid fa-user px-2"></i>Log in</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
 
-    <div class="container mt-5">
-        <div class="progress-bar-container">
-            <div class="step active">
-                <div class="icon">
-                    <img src="https://img.icons8.com/material-outlined/24/ffffff/airplane-take-off.png"/>
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>NobleSky Express</h5>
+                    <p>Your trusted partner for comfortable and reliable air travel.</p>
                 </div>
-                <span>Flights</span>
-            </div>
-            <div class="line"></div>
-            <div class="step active">
-                <div class="icon">
-                    <img src="https://img.icons8.com/material-outlined/24/ffffff/passenger-male.png"/>
+                <div class="col-md-6">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope me-2"></i> support@nobleskyexpress.com</li>
+                        <li><i class="fas fa-phone me-2"></i> +639-497-1233-456</li>
+                    </ul>
                 </div>
-                <span>Passenger Details</span>
             </div>
-            <div class="line"></div>
-            <div class="step active">
-                <div class="icon">
-                    <img src="https://img.icons8.com/material-outlined/24/ffffff/card-in-use.png"/>
-                </div>
-                <span>Payment</span>
-            </div>
-            <div class="line"></div>
-            <div class="step">
-                <div class="icon">
-                    <img src="https://img.icons8.com/material-outlined/24/000000/checkmark.png"/>
-                </div>
-                <span>Confirmation</span>
-            </div>
-        </div>-->
-
-
-    <!-- FOOTER -->
-    <footer class="text-white d-flex px-md-5 px-3 p-4">
-        <div class="col-md-5 col-12">
-            <p class="fw-bold fs-5">Contact Us</p>
-            <p>We'd  love to hear from you! Whether you have a question, need assistance, or want to share your travel experiences, feel free to reach out to us:</p>
-            <ul>
-                <li>Email: support@nobleskyexpress.com</li>
-                <li>Phone: +639-497-1233-456</li>
-                <li>Address: 123 Travel Ave., Quezon City, Philippines</li>
-                <li>Social Media: Follow us on Facebook, Twitter, and Instagram for the latest updates and travel tips.</li>
-            </ul>
         </div>
     </footer>
-    <!-- FOOTER -->
 
-    <!-- Bootstrap JS and dependencies -->
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/f77fb5b473.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Form validation
+        (function () {
+            'use strict'
+            
+            var forms = document.querySelectorAll('.needs-validation')
+            
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+        
+        // Format card number input
+        // document.getElementById('cardNumber').addEventListener('input', function(e) {
+        //     this.value = this.value.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
+        // });
+    </script>
 </body>
 </html>

@@ -1,125 +1,266 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Passenger Details</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../styles/passenger-details.css">
+    <title>Passenger Details | NobleSky Express</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Passenger Details</title>
+    <style>
+        :root {
+            --primary-color: #235477;
+            --secondary-color: #ffad4c;
+            --success-color: #65ff4c;
+            --dark-color: #00204A;
+            --light-color: #f8f9fa;
+            --border-color: #d9d9d9;
+        }
+        
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background: linear-gradient(to right, #003355, #0171BB);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+        
+        .logo {
+            height: 2em;
+        }
+        
+        /* Flight Summary Card */
+        .flight-summary-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
+        
+        .flight-summary-card .card-header {
+            background-color: var(--primary-color);
+            border-radius: 10px 10px 0 0 !important;
+        }
+        
+        /* Progress Bar */
+        .progress-card {
+            padding: 10px;
+            min-height: 50px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .circle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            background-color: white;
+        }
+        
+        .bar {
+            width: 130px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .current {
+            border: 3px solid var(--secondary-color);
+        }
+        
+        .done {
+            border: 3px solid var(--success-color);
+        }
+        
+        .fn {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        /* Form Styling */
+        .form-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .form-control, .form-select {
+            border: 1px solid var(--border-color);
+            padding: 10px 15px;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(35, 84, 119, 0.25);
+        }
+        
+        /* Baggage Section */
+        .baggage-item {
+            border: 1px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .baggage-item:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .fa-bag {
+            color: var(--primary-color);
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .included-badge {
+            border: 1px solid var(--primary-color);
+            border-radius: 50px;
+            padding: 5px 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            background-color: rgba(35, 84, 119, 0.1);
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 12px 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .dropdown-menu {
+            border-color: var(--primary-color);
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(to right, #003355, #0171BB);
+            border-radius: 10px 10px 0 0;
+        }
+        
+        footer a {
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        footer a:hover {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .bar {
+                display: none !important;
+            }
+            
+            .fn {
+                font-size: 0.9rem;
+            }
+            
+            .form-control, .form-select {
+                padding: 8px 12px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg px-sm-5 px-3 fixed-top navbar-dark" id="navbar">
-        <img src="../images/noblesky-logo.png" class="logo d-none d-md-block mx-3" alt="noblesky-logo">
-        <a class="navbar-brand fw-bold text-white" href="../index.html">NobleSky Express</a>
+    <nav class="navbar navbar-expand-lg px-sm-5 px-3 fixed-top navbar-dark">
+        <img th:src="@{/images/noblesky-logo.png}" class="logo d-none d-md-block mx-3" alt="noblesky-logo">
+        <a class="navbar-brand fw-bold text-white" th:href="@{/}">NobleSky Express</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarnav" aria-controls="navbarnav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarnav">
             <ul class="navbar-nav ms-sm-auto fw-normal">
                 <li class="nav-item mx-3">
-                    <a class="nav-link text-white" href="../index.html">Home</a>
+                    <a class="nav-link text-white" th:href="@{/}">Home</a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link text-white" href="./about.html">About</a>
+                    <a class="nav-link text-white" th:href="@{/about}">About</a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link text-white" href="./user-home.html">Manage</a>
+                    <a class="nav-link text-white" th:href="@{/login}">Manage</a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link text-white" href="../index.html"><i class="fa-solid fa-user px-2"></i>Log out</a>
+                    <a class="nav-link text-white" th:href="@{/login}"><i class="fa-solid fa-user px-2"></i>Log out</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <section class="container ">
-        <div class="container flight-search">
-            <h2 class=""><i class="fa-solid fa-plane-up"></i> Flight Search</h2>
-            <div class="row card shadow p-1">
-                <div class="well well-sm">
-                    <div class="row">
-                        <div class="d-md-flex col-xs-12 col-md-6 justify-content-md-end text-sm-end pt-1 pb-1">
-                            <select class="form-select py-0" id="flightType" aria-label="Floating label select example">
-                                <option selected value="one-way" class="">One way</option>
-                                <option value="round-trip">Round trip</option>
-                            </select>
+
+    <div class="container" style="margin-top: 100px;">
+        <!-- Flight Summary -->
+        <div class="card mb-4 flight-summary-card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="fas fa-plane me-2"></i>Flight Summary</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="text-primary">Departure Flight</h5>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="mb-1"><strong th:text="${selectedFlight.fromAirport} + ' → ' + ${selectedFlight.toAirport}"></strong></p>
+                                <p class="mb-1" th:text="${#temporals.format(selectedFlight.departureTime, 'HH:mm')} + ' - ' + ${#temporals.format(selectedFlight.arrivalTime, 'HH:mm')}"></p>
+                            </div>
+                            <div>
+                                <p class="mb-1"><strong>Flight No:</strong> <span th:text="${selectedFlight.flightNumber}"></span></p>
+                                <p class="mb-1"><strong>Class:</strong> Economy</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-xs-12 col-md-6">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-md-6 px-auto">
-                                            <div class="my-md-2">
-                                                <label for="exampleFormControlInput1" class="form-label m-0">From</label>
-                                                <input type="email" class="form-control py-1" id="exampleFormControlInput1" placeholder="name@example.com">
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-md-6 px-auto">
-                                            <div class="my-md-2">
-                                                <label for="exampleFormControlInput1" class="form-label m-0">To</label>
-                                                <input type="email" class="form-control py-1" id="exampleFormControlInput1" placeholder="name@example.com">
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-md-6 px-auto mt-sm-4 mt-md-0">
-                                            <!-- <hr class="sm-show"> -->
-                                            <div class="mb-md-4 mt-md-2">
-                                                <label for="exampleFormControlInput1" class="form-label m-0">Depart</label>
-                                                <input type="email" class="form-control py-1" id="exampleFormControlInput1" placeholder="name@example.com">
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-md-6 px-auto">
-                                            <div class="mb-md-4 mt-md-2">
-                                                <label for="exampleFormControlInput1" class="form-label m-0">Return</label>
-                                                <input type="email" class="form-control py-1" id="exampleFormControlInput1" placeholder="name@example.com">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-md-6 px-auto mt-sm-4 mt-md-0">
-                                            <!-- <hr class="sm-show"> -->
-                                            <div class="my-md-2">
-                                                <label for="selectCabinClass" class="form-label m-0">Cabin Class</label>
-                                                <select class="form-select py-1" id="selectCabinClass" aria-label="Floating label select example">
-                                                    <option selected value="economy">Economy</option>
-                                                    <option value="business">Business</option>
-                                                    <option value="premium">Business Premium</option>
-                                                    <option value="first-class">First Class</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-12 col-md-6 px-auto">
-                                            <div class="mb-md-4 mt-md-2">
-                                                <label for="selectPassengers" class="form-label m-0">Passengers</label>
-                                                <select class="form-select py-1" id="selectPassengers" aria-label="Floating label select example">
-                                                    <option selected value="adult">Adult</option>
-                                                    <option value="children">Children</option>
-                                                    <option value="infant">Infant</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 d-flex justify-content-center align-items-center p-4">
-                                            <button type="button" class="btn" id="btnSearchFlight">Modify</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="col-md-6">
+                        <h5 class="text-primary">Price Summary</h5>
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-1">Base Fare:</p>
+                            <p class="mb-1" th:text="'PHP ' + ${#numbers.formatDecimal(selectedFlight.basePrice, 1, 2)}"></p>
+                        </div>
+                        <hr class="my-1">
+                        <div class="d-flex justify-content-between fw-bold">
+                            <p class="mb-0">Total:</p>
+                            <p class="mb-0" th:text="'PHP ' + ${#numbers.formatDecimal(selectedFlight.basePrice, 1, 2)}"></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <section class="progress-card  shadow container align-items-center mt-4 py-2 px-2">
+
+        <!-- Progress Bar -->
+        <section class="progress-card shadow container align-items-center mt-4 py-2 px-2">
             <div class="row d-flex flex-nowrap">
-                <div class="flex-fill align-items-center d-md-flex justify-content-evenly ">
+                <div class="flex-fill align-items-center d-md-flex justify-content-evenly">
                     <div class="circle done"><i class="fa-solid fa-plane-up"></i></div>
                     <span class="fn ps-md-3 ps-md0-0">Flight Details</span>
                     <div class="bar rounded-2 d-lg-block d-none done"></div>
@@ -136,201 +277,194 @@
                 </div>
                 <div class="flex-fill align-items-center d-md-flex justify-content-evenly w-50">
                     <div class="circle"><i class="fa-solid fa-check"></i></div>
-                    <span class="fn rounded-2 ps-md-3 ps-md-0">Confrimation</span>
+                    <span class="fn rounded-2 ps-md-3 ps-md-0">Confirmation</span>
                 </div>
             </div>
         </section>
-    </section>
-    <section class="container">
-        <hr class="mt-5">
-        <h3 class="my-4">
-            <i class="fa-solid fa-users-between-lines me-3"></i>Passenger Details
-        </h3>
-        <h5 class="mb-4">Passenger 1</h5>
-        <form class="needs-validation" novalidate>
 
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label for="firstName" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="firstName" required>
-                </div>
+        <!-- Passenger Form -->
+        <section class="form-section mt-5">
+            <h3 class="mb-4 text-primary"><i class="fa-solid fa-users-between-lines me-3"></i>Passenger Details</h3>
+            
+            <form th:action="@{/booking/passenger-details}" method="post" class="needs-validation" novalidate>
+                <input type="hidden" name="flightId" th:value="${selectedFlight.flightId}">
+                
+                <h5 class="mb-4 text-primary">Passenger 1 (Primary Contact)</h5>
+                
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="fullName" name="fullName" required>
+                        <div class="invalid-feedback">
+                            Please provide your full name.
+                        </div>
+                    </div>
 
-                <div class="col-md-4 mb-3">
-                    <label for="lastName" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="lastName" required>
-                </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="dob" class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" id="dob" name="dob" required>
+                        <div class="invalid-feedback">
+                            Please provide your date of birth.
+                        </div>
+                    </div>
 
-                <div class="col-md-4 mb-3">
-                    <label for="dateOfBirth" class="form-label">Date of Birth</label>
-                    <input type="date" class="form-control" id="dateOfBirth" required>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label for="nationality" class="form-label">Nationality</label>
-                    <select id="nationality" class="form-select" required>
-                        <option value="">Select Nationality</option>
-                    </select>
-                </div>
-            </div>
-
-
-            <hr class="my-4">
-
-            <h5>Passport Information (Optional)</h5>
-
-            <div class="row pt-3">
-                <div class="col-md-4 mb-3">
-                    <label for="passportNo" class="form-label">Passport Number</label>
-                    <input type="number" class="form-control" id="passportNo">
-                </div>
-
-                <div class="col-md-4 mb-3">
-                    <label for="country" class="form-label">Country of Issue</label>
-                    <select id="country" class="form-select">
-                        <option value="">Country</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label for="expirationDate" class="form-label">Expiration Date</label>
-                    <input type="date" class="form-control" id="expirationDate">
-                </div>
-            </div>
-
-            <hr class="my-4">
-
-            <h5>Contact Information</h5>
-
-            <div class="row pt-3">
-                <div class="col-4 col-md-2 mb-3">
-                    <label for="countryCode" class="form-label">Country Code</label>
-                    <select id="countryCode" class="form-select">
-                        <option value=""></option>
-                    </select>
-                </div>
-
-                <div class="col-8 col-md-4 mb-3">
-                    <label for="mobileNo" class="form-label">Mobile Number</label>
-                    <input type="number" class="form-control" id="mobileNo" required>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label for="emailAddress" class="form-label">Email Address</label>
-                    <input type="email" class="form-control" id="emailAddress" required>
-                </div>
-
-                <div class="col-md-4 mb-3">
-                    <label for="retypeEmail" class="form-label">Retype Email</label>
-                    <input type="email" class="form-control" id="retypeEmail" required>
-                </div>
-            </div>
-
-            <hr class="my-4">
-
-            <h5>Additional Baggage Allowance</h5>
-            <div class="row g-3 ms-md-4 ms-0">
-
-                <div class="col-12 col-md-8">
-                    <div class="border p-3">
-                        <h6>Personal Item</h6>
-                        <div class="d-flex align-items-center">
-                            <i class="fa-solid fa-briefcase fa-2x fa-bag"></i>
-                            <p class="border rounded-pill px-3 py-1 text-center mx-3">Included</p>
-                            <p>Purse, small backpack, briefcase</p>
+                    <div class="col-md-4 mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid email address.
                         </div>
                     </div>
                 </div>
 
-                <div class="col-12 col-md-8">
-                    <div class="border p-3">
-                        <h6>Carry-on Baggage</h6>
-                        <div class="d-flex align-items-center">
-                            <i class="fa-solid fa-suitcase fa-2x fa-bag"></i>
-                            <p class="border rounded-pill px-3 py-1 text-center mx-3">Included</p>
-                            <p>1 piece x 7 kg <br>Fits in overhead bin or under the seat</p>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9]{10,15}">
+                        <div class="invalid-feedback">
+                            Please provide a valid phone number (10-15 digits).
                         </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="passportNumber" class="form-label">Passport Number (Optional)</label>
+                        <input type="text" class="form-control" id="passportNumber" name="passportNumber">
                     </div>
                 </div>
 
-                <div class="col-12 col-md-8">
-                    <div class="border p-3">
-                        <h6>Checked Baggage</h6>
-                        <div class="d-flex align-items-center">
-                            <i class="fa-solid fa-suitcase-rolling fa-3x fa-bag"></i>
-                            <p class="border rounded-pill px-3 py-1 text-center mx-3">Not Included</p>
-                            <div class="dropdown ms-auto">
-                                <button class="btn btn-primary custom-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Add
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end custom-dropdown" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="dropdown-item" href="#">No Extra Baggage</a></li>
-                                    <li><a class="dropdown-item" href="#">10 kg - Price</a></li>
-                                    <li><a class="dropdown-item" href="#">20 kg - Price</a></li>
-                                    <li><a class="dropdown-item" href="#">30 kg - Price</a></li>
-                                    <li><a class="dropdown-item" href="#">40 kg - Price</a></li>
-                                </ul>
+                <hr class="my-4">
+
+                <h5 class="text-primary">Additional Baggage Allowance</h5>
+                <div class="row g-3 ms-md-4 ms-0">
+                    <div class="col-12 col-md-8">
+                        <div class="baggage-item">
+                            <h6><i class="fa-solid fa-briefcase fa-bag"></i>Personal Item</h6>
+                            <div class="d-flex align-items-center mt-2">
+                                <p class="included-badge">Included</p>
+                                <p class="ms-3 mb-0">Purse, small backpack, briefcase</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-8">
+                        <div class="baggage-item">
+                            <h6><i class="fa-solid fa-suitcase fa-bag"></i>Carry-on Baggage</h6>
+                            <div class="d-flex align-items-center mt-2">
+                                <p class="included-badge">Included</p>
+                                <p class="ms-3 mb-0">1 piece x 7 kg <br>Fits in overhead bin or under the seat</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-8">
+                        <div class="baggage-item">
+                            <h6><i class="fa-solid fa-suitcase-rolling fa-bag"></i>Checked Baggage</h6>
+                            <div class="d-flex align-items-center mt-2">
+                                <p class="included-badge">Not Included</p>
+                                <div class="dropdown ms-auto">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                                        Add Baggage
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                        <li><a class="dropdown-item" href="#">No Extra Baggage</a></li>
+                                        <li><a class="dropdown-item" href="#">10 kg - PHP 500</a></li>
+                                        <li><a class="dropdown-item" href="#">20 kg - PHP 1000</a></li>
+                                        <li><a class="dropdown-item" href="#">30 kg - PHP 1500</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-            </div>
+                <hr class="my-4">
 
-            <hr class="my-4">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                            <label class="form-check-label" for="termsCheck">
+                                I agree to the <a href="#" class="text-primary">terms and conditions</a> and the <a href="#" class="text-primary">Data Privacy Policy</a>
+                            </label>
+                            <div class="invalid-feedback">
+                                You must agree before submitting.
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="row">
-                <div class="col-12 mb-3">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="termsCheck" required>
-                        <label class="form-check-label" for="termsCheck">
-                            I agree to the <a href="#">terms and conditions</a> and the <a href="#">Data Privacy Policy</a> of NobleSky Express Airlines
-                        </label>
+                    <div class="col-12 d-flex justify-content-center justify-content-md-end">
+                        <button class="btn btn-primary my-4" type="submit">Save & Continue to Payment</button>
                     </div>
                 </div>
+            </form>
+        </section>
 
-                <div class="col-12 d-flex justify-content-center justify-content-md-end">
-                    <a href="./Payment.html">
-                        <button class="btn btn-primary my-4 save-btn" type="button" >Save & Continue</button>
-                    </a>
-                </div>
-            </div>
-
-        </form>
-    </section>
     <!-- FOOTER -->
-    <footer class="text-white d-flex px-md-5 px-3 p-4">
+    <footer class="text-white d-flex px-md-5 px-3 p-4 mt-5">
         <div class="col-md-5 col-12">
             <p class="fw-bold fs-5">Contact Us</p>
-            <p>We'd  love to hear from you! Whether you have a question, need assistance, or want to share your travel experiences, feel free to reach out to us:</p>
-            <ul>
-                <li>Email: support@nobleskyexpress.com</li>
-                <li>Phone: +639-497-1233-456</li>
-                <li>Address: 123 Travel Ave., Quezon City, Philippines</li>
-                <li>Social Media: Follow us on Facebook, Twitter, and Instagram for the latest updates and travel tips.</li>
+            <p>We'd love to hear from you! Whether you have a question, need assistance, or want to share your travel experiences, feel free to reach out to us:</p>
+            <ul class="list-unstyled">
+                <li><i class="fas fa-envelope me-2"></i>support@nobleskyexpress.com</li>
+                <li><i class="fas fa-phone me-2"></i>+639-497-1233-456</li>
+                <li><i class="fas fa-map-marker-alt me-2"></i>123 Travel Ave., Quezon City, Philippines</li>
             </ul>
+            <div class="mt-3">
+                <a href="#" class="text-white me-3"><i class="fab fa-facebook-f fa-lg"></i></a>
+                <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-lg"></i></a>
+            </div>
         </div>
     </footer>
-    <!-- FOOTER -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-
-        const addButton = document.getElementById('dropdownMenuButton');
-        const dropdownItems = document.querySelectorAll('.dropdown-item');
-    
-        dropdownItems.forEach(item => {
-            item.addEventListener('click', function(event) {
-                event.preventDefault(); 
-                const selectedOption = this.textContent;
-                addButton.textContent = selectedOption; 
+        // Enhanced form validation and baggage selection
+        (function () {
+            'use strict'
+            
+            // Baggage selection
+            const addButton = document.getElementById('dropdownMenuButton');
+            const dropdownItems = document.querySelectorAll('.dropdown-item');
+            const totalPriceElement = document.querySelector('.card-body .fw-bold .mb-0:last-child');
+            let basePrice = parseFloat(totalPriceElement.textContent.replace('PHP ', ''));
+            
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const selectedOption = this.textContent;
+                    addButton.textContent = selectedOption.includes('Add') ? 'Add Baggage' : selectedOption;
+                    
+                    // Calculate new total if baggage option has price
+                    if (selectedOption.includes('PHP')) {
+                        const price = parseFloat(selectedOption.split('PHP ')[1]);
+                        totalPriceElement.textContent = 'PHP ' + (basePrice + price).toFixed(2);
+                    } else if (selectedOption === 'No Extra Baggage') {
+                        totalPriceElement.textContent = 'PHP ' + basePrice.toFixed(2);
+                    }
+                });
             });
-        });
+
+            // Form validation
+            const forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+                
+            // Add CSRF token if needed (uncomment if using Spring Security)
+            // const csrfToken = document.createElement('input');
+            // csrfToken.type = 'hidden';
+            // csrfToken.name = '_csrf';
+            // csrfToken.value = 'YOUR_CSRF_TOKEN';
+            // document.querySelector('form').appendChild(csrfToken);
+        })();
     </script>
 </body>
 </html>
