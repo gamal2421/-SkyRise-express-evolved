@@ -29,11 +29,5 @@ List<Flight> findByFromAirportAndToAirportAndDepartureDate(String fromAirport, S
     // Available flights with seat threshold
     @Query("SELECT f FROM Flight f WHERE f.availableSeats >= ?1")
     List<Flight> findAvailableFlights(int minSeats);
-    
-
-    
-   
-    
-
 
 }

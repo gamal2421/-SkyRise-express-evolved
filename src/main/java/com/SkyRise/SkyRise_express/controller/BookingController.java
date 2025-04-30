@@ -24,7 +24,7 @@ public class BookingController {
     @GetMapping("/select/{id}")
     public String selectFlight(@PathVariable("id") Long id, Model model) {
         Flight flight = flightRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid flight ID: " + id));
+                 .orElseThrow(() -> new IllegalArgumentException("Invalid flight ID: " + id));
         model.addAttribute("selectedFlight", flight);
         return "pages/passenger-details";
     }

@@ -63,18 +63,14 @@ public class PaymentController {
             payment.setPaymentDate(new Timestamp(System.currentTimeMillis()));
             Payment savedPayment = paymentRepository.save(payment);
 
-          User user = userRepository.findByEmail("guest@example.com")
-    .orElseGet(() -> {
-        User tempUser = new User();
-        tempUser.setEmail("guest@example.com");
-        tempUser.setFullName((String) session.getAttribute("passengerName"));
-        tempUser.setPhone((String) session.getAttribute("passengerPhone"));
-        tempUser.setDob(LocalDate.parse((String) session.getAttribute("passengerDob"))); // Add this line
-        // Set other required fields if needed
-        tempUser.setRole("User"); // Example, set a default role
-        tempUser.setPassword(UUID.randomUUID().toString()); // Set a random password for guest users
-        return userRepository.save(tempUser);
-    });
+          User user = (User) session.getAttribute("User");
+
+          if (user == null) {
+            
+              // If not logged in (guest), handle gracefully or redirect
+              throw new RuntimeException("User not logged in");
+          }
+          
 
             Long flightId = (Long) session.getAttribute("flightId");
             if (flightId == null) {

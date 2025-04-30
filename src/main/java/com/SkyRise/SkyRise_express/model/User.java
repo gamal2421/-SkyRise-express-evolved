@@ -1,38 +1,37 @@
 package com.SkyRise.SkyRise_express.model;
 
-import java.sql.Date;
 import java.time.LocalDate;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;  // Correct import for JPA @Table
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users")  // Using JPA @Table annotation
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-    
+
+    @Column(nullable = false)
     private String fullName;
+
+    @Column(nullable = false)
     private LocalDate dob;
-    
-    @Column(unique = true)
+
+    @Column(unique = true, nullable = false)
     private String email;
-    
+
     private String phone;
+
+    @Column(nullable = false)
     private String password;
-    
+
     @Column(unique = true)
     private String passportNumber;
-    
+
+    @Column(nullable = false)
     private String role;
-    
-    // Getters and setters below...
-    public Long getUserId() {
+
+     // Getters and setters below...
+     public Long getUserId() {
         return userId;
     }
 
