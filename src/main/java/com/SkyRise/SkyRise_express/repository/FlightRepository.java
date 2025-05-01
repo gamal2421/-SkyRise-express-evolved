@@ -29,5 +29,17 @@ List<Flight> findByFromAirportAndToAirportAndDepartureDate(String fromAirport, S
     // Available flights with seat threshold
     @Query("SELECT f FROM Flight f WHERE f.availableSeats >= ?1")
     List<Flight> findAvailableFlights(int minSeats);
+         @Query("SELECT TO_CHAR(f.departureDate, 'Month') as month, SUM(f.basePrice) as total " +
+           "FROM Flight f " +
+           "WHERE EXTRACT(YEAR FROM f.departureDate) = EXTRACT(YEAR FROM CURRENT_DATE) " +
+           "GROUP BY TO_CHAR(f.departureDate, 'Month'), EXTRACT(MONTH FROM f.departureDate) " +
+           "ORDER BY EXTRACT(MONTH FROM f.departureDate)")
+    List<Object[]> getMonthlySales();
+    
+    @Query("SELECT f.toAirport as destination, COUNT(f) as bookings " +
+           "FROM Flight f " +
+           "GROUP BY f.toAirport " +
+           "ORDER BY bookings DESC")
+    List<Object[]> getPopularDestinations();
 
 }
