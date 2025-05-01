@@ -92,7 +92,7 @@
         <li class="nav-item mx-3"><a class="nav-link text-white" href="../index.html">Home</a></li>
         <li class="nav-item mx-3"><a class="nav-link text-white" href="./about.html">About</a></li>
         <li class="nav-item mx-3"><a class="nav-link text-white" href="./user-home.html">Manage</a></li>
-        <li class="nav-item mx-3"><a class="nav-link text-white" href="./login.html"><i class="fa-solid fa-user px-2"></i>Log in</a></li>
+        <li class="nav-item mx-3"><a class="nav-link text-white" href="/login"><i class="fa-solid fa-user px-2"></i>Log in</a></li>
       </ul>
     </div>
   </nav>
@@ -101,59 +101,63 @@
   <!-- Registration Form -->
   <main class="container my-5">
     <h1 class="mb-4">Create an Account</h1>
-<form class="row g-3 needs-validation" th:action="@{/register}" method="post" novalidate>
-<div th:if="${error}" class="alert alert-danger col-12" th:text="${error}"></div>
+    <form class="row g-3 needs-validation" id="register-form" novalidate >
+      <div id="error-message" class="alert alert-danger d-none col-12"></div>
+      
+            <div class="col-md-4 mb-3">
+              <label for="firstName" class="form-label">First Name</label>
+      <input type="text" class="form-control" id="firstName" name="firstName" required>
+            </div>
+      
+            <div class="col-md-4 mb-3">
+              <label for="lastName" class="form-label">Last Name</label>
+      <input type="text" class="form-control" id="lastName" name="lastName" required>
+            </div>
+      
+            <div class="col-md-4 mb-3">
+              <label for="dateOfBirth" class="form-label">Date of Birth</label>
+      <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" required>
+            </div>
+      
+            <div class="col-md-4 mb-3">
+              <label for="mobileNo" class="form-label">Mobile Number</label>
+      <input type="tel" class="form-control" id="mobileNo" name="mobileNo" required>
+            </div>
+      
+            <div class="col-md-4 mb-3">
+              <label for="emailAddress" class="form-label">Email Address</label>
+      <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+      
+            <div class="col-md-4 mb-3">
+              <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+      
+            <div class="col-md-4 mb-3">
+              <label for="reEnterPassword" class="form-label">Re-enter Password</label>
+      <input type="password" class="form-control" id="reEnterPassword" name="reEnterPassword" required>
+            </div>
+      
+            <div class="col-12 mb-3">
+              <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="termsCheck" name="termsCheck" required>
+                <label class="form-check-label" for="termsCheck">
+                  I agree to the <a href="#">terms and conditions</a> and the <a href="#">Data Privacy Policy</a> of NobleSky Express Airlines
+                </label>
+              </div>
+            </div>
+            <!-- Add this where you want error messages -->
+        <div id="error-message" class="alert alert-danger" style="display: none;"></div>
 
-      <div class="col-md-4 mb-3">
-        <label for="firstName" class="form-label">First Name</label>
-<input type="text" class="form-control" id="firstName" name="firstName" required>
-      </div>
-
-      <div class="col-md-4 mb-3">
-        <label for="lastName" class="form-label">Last Name</label>
-<input type="text" class="form-control" id="lastName" name="lastName" required>
-      </div>
-
-      <div class="col-md-4 mb-3">
-        <label for="dateOfBirth" class="form-label">Date of Birth</label>
-<input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" required>
-      </div>
-
-      <div class="col-md-4 mb-3">
-        <label for="mobileNo" class="form-label">Mobile Number</label>
-<input type="tel" class="form-control" id="mobileNo" name="mobileNo" required>
-      </div>
-
-      <div class="col-md-4 mb-3">
-        <label for="emailAddress" class="form-label">Email Address</label>
-<input type="email" class="form-control" id="email" name="email" required>
-      </div>
-
-      <div class="col-md-4 mb-3">
-        <label for="password" class="form-label">Password</label>
-<input type="password" class="form-control" id="password" name="password" required>
-      </div>
-
-      <div class="col-md-4 mb-3">
-        <label for="reEnterPassword" class="form-label">Re-enter Password</label>
-<input type="password" class="form-control" id="reEnterPassword" name="reEnterPassword" required>
-      </div>
-
-      <div class="col-12 mb-3">
-        <div class="form-check">
-<input class="form-check-input" type="checkbox" id="termsCheck" name="termsCheck" required>
-          <label class="form-check-label" for="termsCheck">
-            I agree to the <a href="#">terms and conditions</a> and the <a href="#">Data Privacy Policy</a> of NobleSky Express Airlines
-          </label>
-        </div>
-      </div>
-
-      <div class="col-12 d-grid">
-        <a href="./login.html">
-<button type="submit" class="btn btn-primary submit-btn">Register</button>
-        </a>
-      </div>
-    </form>
+      
+            <div class="col-12 d-grid">
+              <a href="/login">
+      <button type="submit" class="btn btn-primary submit-btn">Register</button>
+              </a>
+            </div>
+          </form>
+    
   </main>
 
   <!-- Footer -->
@@ -173,5 +177,59 @@
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://kit.fontawesome.com/f77fb5b473.js" crossorigin="anonymous"></script>
+
+<!-- Custom Script -->
+<script>
+document.getElementById('register-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    const dateOfBirth = document.getElementById('dateOfBirth').value;
+    const phone = document.getElementById('mobileNo').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const reEnterPassword = document.getElementById('reEnterPassword').value;
+    const passportNumber = ""; // Optional — you can collect it from a field if needed
+
+    const errorMessage = document.getElementById('error-message');
+    errorMessage.style.display = 'none';
+
+    if (!firstName || !lastName || !email || !password || !reEnterPassword || !dateOfBirth || !phone) {
+        errorMessage.innerText = 'Please fill out all required fields.';
+        errorMessage.style.display = 'block';
+        return;
+    }
+
+    if (password !== reEnterPassword) {
+        errorMessage.innerText = 'Passwords do not match.';
+        errorMessage.style.display = 'block';
+        return;
+    }
+
+    try {
+        const response = await fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}&dateOfBirth=${encodeURIComponent(dateOfBirth)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&password=${encodeURIComponent(password)}&reEnterPassword=${encodeURIComponent(reEnterPassword)}&passportNumber=${encodeURIComponent(passportNumber)}`
+        });
+
+        if (response.redirected) {
+            window.location.href = response.url;
+        } else {
+            const responseText = await response.text();
+            errorMessage.innerText = responseText;
+            errorMessage.style.display = 'block';
+        }
+    } catch (error) {
+        errorMessage.innerText = 'An error occurred during registration.';
+        errorMessage.style.display = 'block';
+    }
+});
+
+</script>
+
 </body>
 </html>
