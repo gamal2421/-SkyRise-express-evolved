@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -55,6 +56,10 @@ public class PaymentController {
         return "pages/payment";
     }
 
+
+    
+
+
     @PostMapping("/process")
     @Transactional
     public String processPayment(@RequestParam String cardNumber,
@@ -69,9 +74,26 @@ public class PaymentController {
 
             // Get user from session
             User user = (User) session.getAttribute("user");
+            String passengerName = (String) session.getAttribute("passengerName");
+            String passengerPhone = (String) session.getAttribute("passengerPhone");
+            String passengerDobStr = (String) session.getAttribute("passengerDob");
+            String passengerEmail = (String) session.getAttribute("passengerEmail");
+            
             if (user == null) {
-                throw new RuntimeException("User not logged in");
+                // Guest booking flow — check or create temp user by email
+                user = userRepository.findByEmail(passengerEmail)
+                    .orElseGet(() -> {
+                        User tempUser = new User();
+                        tempUser.setEmail(passengerEmail);
+                        tempUser.setFullName(passengerName);
+                        tempUser.setPhone(passengerPhone);
+                        tempUser.setDob(LocalDate.parse(passengerDobStr));
+                        tempUser.setRole("User");
+                        tempUser.setPassword(UUID.randomUUID().toString());
+                        return userRepository.save(tempUser);
+                    });
             }
+            
 
             // Get flight from session
             Long flightId = (Long) session.getAttribute("flightId");
@@ -110,9 +132,17 @@ public class PaymentController {
             booking.setETicketNumber(generateETicketNumber());
             booking.setNoPassengers(1);
             booking.setSpecialRequest("N/A");
-            booking.setSeatNumber("AUTO");
+            booking.setSeatNumber(null);
+
+            // Add passenger info to booking (if your Booking entity has these fields)
+            booking.setPassengerName(passengerName);
+            booking.setPassengerEmail(passengerEmail);
+            booking.setPassengerPhone(passengerPhone);
+            booking.setPassengerDob(LocalDate.parse(passengerDobStr));
             
-            bookingRepository.save(booking);
+            Booking savedBooking = bookingRepository.save(booking);
+            String assignedSeat = savedBooking.getSeatNumber(); // this should now contain e.g., "B3"
+            booking.setSeatNumber(assignedSeat);
 
             // Clear session attributes
             session.removeAttribute("flightId");

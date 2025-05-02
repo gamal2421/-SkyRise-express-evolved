@@ -101,7 +101,7 @@ public class UserController {
         return "redirect:/login?success=registered";
     }
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String showHomePage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         if (user == null) {
@@ -273,7 +273,8 @@ public class UserController {
         
         userRepository.deleteById(id);
         return "redirect:/admin/dashboard";
-    }@GetMapping("/admin/reports")
+    }
+    @GetMapping("/admin/reports")
 public String showReports(HttpSession session, Model model) {
     User user = (User) session.getAttribute("user");
     if (user == null || !user.getRole().equals("Admin")) {

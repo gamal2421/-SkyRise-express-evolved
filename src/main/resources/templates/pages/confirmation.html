@@ -63,9 +63,12 @@
                 </div>
                 <h2 class="text-success mb-3">Thank You for Your Booking!</h2>
                 <p class="lead">Your flight has been successfully booked.</p>
-                <p th:if="${booking?.user?.email != null}">
-                    An email confirmation has been sent to <strong th:text="${booking.user.email}"></strong>
+
+                <p>
+                    An email confirmation has been sent to 
+                    <strong th:text="${booking.user?.email != null} ? ${booking.user.email} : ${booking.passengerEmail}"></strong>
                 </p>
+
                 
                 <div class="alert alert-primary mt-4">
                     <h5>Your E-Ticket Number: <span class="fw-bold" th:text="${booking.eTicketNumber}"></span></h5>
@@ -97,9 +100,9 @@
                                 <h5 class="mb-0"><i class="fas fa-user me-2"></i> Passenger Details</h5>
                             </div>
                             <div class="card-body">
-                                <p class="mb-2"><strong th:text="${booking.user.fullName}"></strong></p>
-                                <p class="mb-2" th:text="${booking.user.email}"></p>
-                                <p class="mb-2" th:text="${booking.user.phone}"></p> <!-- Changed from phoneNumber to phone -->
+                                <p class="mb-2"><strong th:text="${booking.passengerName}"></strong></p>
+                                <p class="mb-2" th:text="${booking.passengerEmail}"></p>
+                                <p class="mb-2" th:text="${booking.passengerPhone}"></p> <!-- Changed from phoneNumber to phone -->
                                 <p class="mb-0">Class: <span th:text="${booking.classType}"></span></p>
                                 <p class="mb-0" th:if="${booking.seatNumber != null}">Seat: <span th:text="${booking.seatNumber}"></span></p>
                             </div>

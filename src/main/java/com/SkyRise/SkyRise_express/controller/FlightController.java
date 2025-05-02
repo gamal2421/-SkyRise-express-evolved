@@ -20,7 +20,7 @@ public class FlightController {
     @Autowired
     private FlightRepository flightRepository;
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String showHomePage(Model model) {
         model.addAttribute("searchParams", Map.of(
             "tripType", "one-way",

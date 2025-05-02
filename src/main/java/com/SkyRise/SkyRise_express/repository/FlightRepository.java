@@ -36,10 +36,11 @@ List<Flight> findByFromAirportAndToAirportAndDepartureDate(String fromAirport, S
            "ORDER BY EXTRACT(MONTH FROM f.departureDate)")
     List<Object[]> getMonthlySales();
     
-    @Query("SELECT f.toAirport as destination, COUNT(f) as bookings " +
-           "FROM Flight f " +
-           "GROUP BY f.toAirport " +
-           "ORDER BY bookings DESC")
+    @Query("SELECT b.flight.toAirport as destination, COUNT(b) as bookings " +
+    "FROM Booking b " +
+    "GROUP BY b.flight.toAirport " +
+    "ORDER BY bookings DESC")
     List<Object[]> getPopularDestinations();
+
 
 }

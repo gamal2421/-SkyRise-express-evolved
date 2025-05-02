@@ -16,7 +16,7 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/booking")
 public class BookingController {
-
+    
     @Autowired
     private FlightRepository flightRepository;
 

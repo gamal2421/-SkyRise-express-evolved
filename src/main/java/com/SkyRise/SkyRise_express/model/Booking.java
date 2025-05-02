@@ -2,12 +2,19 @@ package com.SkyRise.SkyRise_express.model;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(name = "booking")
 public class Booking {
+
+    private String passengerName;
+    private String passengerEmail;
+    private String passengerPhone;
+    private LocalDate passengerDob;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "booking_id")
@@ -153,6 +160,38 @@ public class Booking {
         return booking;
     }
 
+        // Getters and Setters
+    public String getPassengerName() {
+        return passengerName;
+    }
+
+    public void setPassengerName(String passengerName) {
+        this.passengerName = passengerName;
+    }
+
+    public String getPassengerEmail() {
+        return passengerEmail;
+    }
+
+    public void setPassengerEmail(String passengerEmail) {
+        this.passengerEmail = passengerEmail;
+    }
+
+    public String getPassengerPhone() {
+        return passengerPhone;
+    }
+
+    public void setPassengerPhone(String passengerPhone) {
+        this.passengerPhone = passengerPhone;
+    }
+
+    public LocalDate getPassengerDob() {
+        return passengerDob;
+    }
+
+    public void setPassengerDob(LocalDate passengerDob) {
+        this.passengerDob = passengerDob;
+    }
     private static String generateETicketNumber() {
         return UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
