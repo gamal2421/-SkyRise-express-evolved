@@ -115,4 +115,9 @@ public String searchFlights(
 
     return "pages/flight-search";
 }
+@GetMapping("/about")
+public String aboutPage() {
+    return "pages/about";
+}
+
 }
