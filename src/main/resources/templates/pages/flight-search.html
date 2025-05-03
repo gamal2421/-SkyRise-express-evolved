@@ -98,6 +98,16 @@
             border-color: #235477;
             box-shadow: 0 0 0 0.25rem rgba(35, 84, 119, 0.25);
         }
+        select[multiple] {
+        width: 100%;
+        height: 120px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        direction: ltr;
+        /* رجعنا الكتابة لليسار */
+    }
     </style>
 </head>
 <body>
@@ -187,6 +197,14 @@
                                th:required="${searchParams.tripType == 'round-trip'}">
                     </div>
                 </div>
+                <label for="as_list">Select booking types:</label>
+                    <select name="as_list[]" id="as_list" multiple>
+                        <option value="Economy">Economy </option>
+                        <option value="VIP"> Premium Economy</option>
+                        <option value="Group">Business class</option>
+                        <option value="Online">First class</option>
+                    </select>
+
                 <div class="row">
                     <div class="col-md-2 offset-md-10">
                         <button type="submit" class="search-btn">Search Flights</button>
