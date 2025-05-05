@@ -90,7 +90,28 @@
             font-weight: 600;
             color: var(--primary-color);
         }
-        
+           #scrollTopBtn {
+        display: none; /* Hidden by default */
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        z-index: 99;
+        font-size: 18px;
+        border: none;
+        outline: none;
+        background-color: var(--primary-color);
+        color: white;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+    }
+
+    #scrollTopBtn:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-2px);
+    }
         /* Form Styling */
         .form-section {
             background-color: white;
@@ -408,9 +429,8 @@
                 </div>
             </form>
         </section>
-
-    <!-- FOOTER -->
-    <footer class="text-white d-flex px-md-5 px-3 p-4 mt-5">
+        <!-- FOOTER -->
+        <footer class="text-white d-flex px-md-5 px-3 p-4 mt-5">
         <div class="col-md-5 col-12">
             <p class="fw-bold fs-5">Contact Us</p>
             <p>We'd love to hear from you! Whether you have a question, need assistance, or want to share your travel experiences, feel free to reach out to us:</p>
@@ -427,6 +447,9 @@
         </div>
     </footer>
 
+   <button onclick="scrollToTop()" id="scrollTopBtn" title="Go to top">
+    <i class="fa-solid fa-arrow-up"></i>
+</button>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Enhanced form validation and baggage selection
@@ -467,7 +490,7 @@
                         form.classList.add('was-validated');
                     }, false);
                 });
-                
+  
             // Add CSRF token if needed (uncomment if using Spring Security)
             // const csrfToken = document.createElement('input');
             // csrfToken.type = 'hidden';
@@ -475,6 +498,25 @@
             // csrfToken.value = 'YOUR_CSRF_TOKEN';
             // document.querySelector('form').appendChild(csrfToken);
         })();
+               window.onscroll = function() {
+    scrollFunction();
+};
+
+function scrollFunction() {
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        scrollTopBtn.style.display = "block";
+    } else {
+        scrollTopBtn.style.display = "none";
+    }
+}
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
     </script>
 </body>
 </html>

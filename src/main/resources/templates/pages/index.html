@@ -6,15 +6,65 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles/index.css">
   <title>SKY RISE</title>
+  <style>
+    /* Scroll to top button styles */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 9999;
+      width: 50px;
+      height: 50px;
+      border: none;
+      outline: none;
+      background-color: #0171BB;
+      color: white;
+      cursor: pointer;
+      border-radius: 50%;
+      font-size: 18px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+    }
+
+    #scrollTopBtn.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #scrollTopBtn:hover {
+      background-color: #003355;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Offer card animations */
+    .offer-card {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+      will-change: transform, opacity;
+    }
+    
+    .offer-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <body>
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg px-sm-5 px-3 fixed-top navbar-dark" id="navbar">
     <img src="/images/Logo.png" class="logo d-none d-md-block mx-3" alt="logo">
-    <!-- <img src="/images/Logo.png" alt="logo" class="logo d-none d-md-block mx-3"> -->
     <a class="navbar-brand fw-bold text-white" href="/">SKY RISE</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarnav" aria-controls="navbarnav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -25,7 +75,7 @@
           <a class="nav-link text-white" href="/">Home</a>
         </li>
         <li class="nav-item mx-3">
-<a class="nav-link text-white" href="/about">About</a>
+          <a class="nav-link text-white" href="/about">About</a>
         </li>
         <li class="nav-item mx-3">
           <a class="nav-link text-white" href="/login">Manage</a>
@@ -127,33 +177,55 @@
       </div>
     </form>
   </div>
-<!-- Offers Section -->
-<section class="container my-5">
-  <h2 class="text-center mb-4">Special Offers</h2>
-  <div class="row">
-    <div class="col-md-6 mb-4">
-      <div class="card h-100 d-flex flex-column shadow">
-        <img loading="lazy" src="/images/china.jpg" class="d-block w-100" alt="china">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title">Tokyo Special</h5>
-          <p class="card-text">Fly to Tokyo for only PHP 15,000 round trip!</p>
-          <a href="#" class="btn btn-primary mt-auto">Book Now</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 mb-4">
-      <div class="card h-100 d-flex flex-column shadow">
-        <img loading="lazy" src="/images/japan.jpg" class="d-block w-100" alt="Japan">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title">Paris Deal</h5>
-          <p class="card-text">Limited time offer to Paris starting at PHP 25,000</p>
-          <a href="#" class="btn btn-primary mt-auto">Book Now</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
+  <!-- Offers Section -->
+  <section class="container my-5">
+    <h2 class="text-center mb-4">Special Offers</h2>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="card h-100 d-flex flex-column shadow offer-card">
+          <img loading="lazy" src="/images/china.jpg" class="d-block w-100" alt="china">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Tokyo Special</h5>
+            <p class="card-text">Fly to Tokyo for only PHP 15,000 round trip!</p>
+            <a href="#" class="btn btn-primary mt-auto">Book Now</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-4">
+        <div class="card h-100 d-flex flex-column shadow offer-card">
+          <img loading="lazy" src="/images/japan.jpg" class="d-block w-100" alt="Japan">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Paris Deal</h5>
+            <p class="card-text">Limited time offer to Paris starting at PHP 25,000</p>
+            <a href="#" class="btn btn-primary mt-auto">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="card h-100 d-flex flex-column shadow offer-card">
+          <img loading="lazy" src="/images/india.jpg" class="d-block w-100" alt="china">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Tokyo Special</h5>
+            <p class="card-text">Fly to Tokyo for only PHP 15,000 round trip!</p>
+            <a href="#" class="btn btn-primary mt-auto">Book Now</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-4">
+        <div class="card h-100 d-flex flex-column shadow offer-card">
+          <img loading="lazy" src="/images/Venice.jpg" class="d-block w-100" alt="Japan">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Paris Deal</h5>
+            <p class="card-text">Limited time offer to Paris starting at PHP 25,000</p>
+            <a href="#" class="btn btn-primary mt-auto">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- FOOTER -->
   <footer class="text-white d-flex px-md-5 px-3 p-4 bg-dark mt-5">
@@ -173,16 +245,32 @@
     </div>
   </footer>
 
+  <!-- Scroll to top button -->
+  <button id="scrollTopBtn" title="Go to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://kit.fontawesome.com/f77fb5b473.js" crossorigin="anonymous"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      // Trip type toggle functionality
       const tripTypeSpan = document.getElementById('tripType');
       const tripTypeValue = document.getElementById('tripTypeValue');
       const toggleOption = document.getElementById('toggleOption');
       const returnDateInput = document.getElementById('return');
       const returnDateContainer = document.getElementById('returnDateContainer');
+
+      function updateReturnDateVisibility() {
+        if (tripTypeValue.value === 'one-way') {
+          returnDateInput.required = false;
+          returnDateContainer.style.display = 'none';
+        } else {
+          returnDateInput.required = true;
+          returnDateContainer.style.display = 'block';
+        }
+      }
 
       // Initialize based on default trip type
       updateReturnDateVisibility();
@@ -202,16 +290,6 @@
         
         updateReturnDateVisibility();
       });
-
-      function updateReturnDateVisibility() {
-        if (tripTypeValue.value === 'one-way') {
-          returnDateInput.required = false;
-          returnDateContainer.style.display = 'none';
-        } else {
-          returnDateInput.required = true;
-          returnDateContainer.style.display = 'block';
-        }
-      }
 
       // Set minimum date for departure to today
       const today = new Date().toISOString().split('T')[0];
@@ -264,6 +342,44 @@
         const temp = fromSelect.value;
         fromSelect.value = toSelect.value;
         toSelect.value = temp;
+      });
+
+      // Offer card animations with Intersection Observer
+      const offerCards = document.querySelectorAll('.offer-card');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.05,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      offerCards.forEach(card => {
+        observer.observe(card);
+      });
+
+      // Scroll to top functionality
+      const scrollTopBtn = document.getElementById('scrollTopBtn');
+      
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          scrollTopBtn.classList.add('show');
+        } else {
+          scrollTopBtn.classList.remove('show');
+        }
+      });
+
+      scrollTopBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
       });
     });
   </script>

@@ -108,6 +108,144 @@
         direction: ltr;
         /* رجعنا الكتابة لليسار */
     }
+    /* Add this to your flight-search.css file */
+@media (max-width: 768px) {
+    /* Flight cards container */
+    .row.m-3.shadow.border.rounded-3.fw-normal {
+        padding: 15px;
+        margin: 10px 0 !important;
+    }
+
+    /* Flight details row */
+    .row.pb-0.px-4.text-center.justify-content-between {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0 10px !important;
+    }
+
+    /* Flight time columns */
+    .col-12.col-lg-2.col-md-4.my-auto {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    /* Flight route visualization */
+    .row.pt-4.mb-0.text-center {
+        flex-direction: row;
+        justify-content: center;
+        margin: 15px 0;
+    }
+
+    .row.pt-4.mb-0.text-center hr {
+        width: 30%;
+        margin: 0 5px;
+        border: 2px dashed #ccc !important;
+    }
+
+    .fa-sharp.fa-solid.fa-plane {
+        margin: 0 10px;
+    }
+
+    /* Hide the chevron on mobile */
+    .fa-solid.fa-chevron-right {
+        display: none;
+    }
+
+    /* Price section */
+    .col-12.col-lg-2.col-md-4.my-auto.price {
+        margin: 15px 0;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        width: 100%;
+    }
+
+    /* Select button */
+    .col-12.col-lg-2.col-md-4.my-auto {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .col-12.col-lg-2.col-md-4.my-auto button {
+        width: 100%;
+        padding: 8px;
+    }
+
+    /* Adjust airport labels */
+    .row .col.text-end.p-1,
+    .row .col.text-start.p-1 {
+        text-align: center !important;
+        padding: 0 !important;
+    }
+
+    /* Flight number section */
+    .row .col.my-auto.text-end.px-1,
+    .row .col.my-auto.text-start.px-1 {
+        justify-content: center;
+        padding: 5px 0 !important;
+    }
+
+    /* Progress bar adjustments */
+    .progress-card .row {
+        flex-wrap: wrap;
+    }
+
+    .progress-card .flex-fill {
+        width: 50%;
+        margin-bottom: 15px;
+    }
+
+    .progress-card .bar {
+        display: none;
+    }
+
+    /* Search box adjustments */
+    .search-box .row {
+        margin-bottom: 10px;
+    }
+
+    .search-box .col-md-2,
+    .search-box .col-md-3 {
+        margin-bottom: 15px;
+    }
+
+    /* Multiple select dropdown */
+    select[multiple] {
+        height: auto;
+        max-height: 200px;
+    }
+}
+
+/* Additional small screen adjustments */
+@media (max-width: 576px) {
+    /* Make flight times more prominent */
+    .pt-3.m-0 {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    /* Airport codes */
+    .col.text-end.p-1 {
+        font-size: 0.9rem;
+    }
+
+    /* Price section */
+    .price p {
+        font-size: 1rem;
+    }
+
+    /* Progress steps */
+    .fn {
+        font-size: 0.8rem;
+    }
+
+    .circle {
+        height: 30px;
+        width: 30px;
+        font-size: 0.8rem;
+    }
+}
     </style>
 </head>
 <body>

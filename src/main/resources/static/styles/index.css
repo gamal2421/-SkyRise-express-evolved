@@ -4,7 +4,13 @@
     box-sizing: border-box;
     /* font-family: Plus Jakarta Sans; */
 }
-
+:root {
+  --primary-color: #003355;
+  --secondary-color: #0171BB;
+  --accent-color: #FFAD4D;
+  --light-color: #f8f9fa;
+  --dark-color: #00204A;
+}
 /* NAVBAR */
 nav {
 	background: linear-gradient(to right, #003355, #0171BB);
@@ -261,8 +267,59 @@ main .hero {
     font-size: 0.95rem;
     color: #333;
   }
+.offer-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+    will-change: transform, opacity;
+}
 
+.offer-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
+/* Stagger animations */
+.row:nth-of-type(1) .offer-card:nth-child(1) { transition-delay: 0.1s; }
+.row:nth-of-type(1) .offer-card:nth-child(2) { transition-delay: 0.2s; }
+.row:nth-of-type(2) .offer-card:nth-child(1) { transition-delay: 0.3s; }
+.row:nth-of-type(2) .offer-card:nth-child(2) { transition-delay: 0.4s; }
+/* Scroll to Top Button */
+/* In your CSS file, replace the existing #scrollTopBtn styles with: */
+#scrollTopBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+    width: 50px;
+    height: 50px;
+    border: none;
+    outline: none;
+    background-color: #0171BB;
+    color: white;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 18px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+}
+
+#scrollTopBtn.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+#scrollTopBtn:hover {
+    background-color: #003355;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
 
 
 footer {
