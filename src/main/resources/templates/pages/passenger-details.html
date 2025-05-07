@@ -329,8 +329,6 @@
     </div>
 </div>
 
-                
-
                     <div class="col-md-4 mb-3">
                         <label for="passportNumber" class="form-label">Passport Number (Optional)</label>
                         <input type="text" class="form-control" id="passportNumber" name="passportNumber">
@@ -338,7 +336,7 @@
                 </div>
 
                         <!-- Contact Info Card -->
-            <div class="col-md-12 mb-4">
+                <div class="col-md-12 mb-4">
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title text-primary mb-3"><i class="fa-solid fa-address-book me-2"></i>Contact
@@ -361,7 +359,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                </div>
 
                 <hr class="my-4">
 
@@ -406,12 +404,19 @@
                             </div>
                         </div>
                     </div>
+                    <label for="as_list">Select booking types:</label>
+                <select name="classType" id="classType" class="form-control" required>
+                    <option value="Economy">Economy</option>
+                    <option value="Premium Economy">Premium Economy</option>
+                    <option value="Business Class">Business</option>
+                    <option value="First Class">First Class</option>
+                </select>  
                 </div>
 
                 <div class="col-12 col-md-8 mt-4">
                     <div class="special-request">
                         <label for="specialRequest" class="form-label"><i class="fa-solid fa-comment-dots"></i> Special Request</label>
-                        <textarea class="form-control" id="specialRequest" rows="3"
+                        <textarea class="form-control" id="specialRequest" name="specialRequest" rows="3"
                             placeholder="Type your special request here..."></textarea>
                     </div>
                 </div>
@@ -443,7 +448,7 @@
             <p class="fw-bold fs-5">Contact Us</p>
             <p>We'd love to hear from you! Whether you have a question, need assistance, or want to share your travel experiences, feel free to reach out to us:</p>
             <ul class="list-unstyled">
-                <li><i class="fas fa-envelope me-2"></i>support@nobleskyexpress.com</li>
+                <li><i class="fas fa-envelope me-2"></i>support@skyeRisexpress.com</li>
                 <li><i class="fas fa-phone me-2"></i>+639-497-1233-456</li>
                 <li><i class="fas fa-map-marker-alt me-2"></i>123 Travel Ave., Quezon City, Philippines</li>
             </ul>
@@ -491,22 +496,32 @@
             const totalPriceElement = document.querySelector('.card-body .fw-bold .mb-0:last-child');
             let basePrice = parseFloat(totalPriceElement.textContent.replace('PHP ', ''));
             
-            dropdownItems.forEach(item => {
-                item.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const selectedOption = this.textContent;
-                    addButton.textContent = selectedOption.includes('Add') ? 'Add Baggage' : selectedOption;
-                    
-                    // Calculate new total if baggage option has price
-                    if (selectedOption.includes('PHP')) {
-                        const price = parseFloat(selectedOption.split('PHP ')[1]);
-                        totalPriceElement.textContent = 'PHP ' + (basePrice + price).toFixed(2);
-                    } else if (selectedOption === 'No Extra Baggage') {
-                        totalPriceElement.textContent = 'PHP ' + basePrice.toFixed(2);
-                    }
-                });
-            });
+                dropdownItems.forEach(item => {
+            item.addEventListener('click', function(event) {
+            event.preventDefault();
+            const selectedOption = this.textContent;
+            addButton.textContent = selectedOption.includes('Add') ? 'Add Baggage' : selectedOption;
+            
+            let newPrice = basePrice;
+            if (selectedOption.includes('PHP')) {
+                const price = parseFloat(selectedOption.split('PHP ')[1]);
+                newPrice = basePrice + price;
+            }
+            
+            // Update displayed total
+            totalPriceElement.textContent = 'PHP ' + newPrice.toFixed(2);
+            
+            // Store the total price in sessionStorage
+            sessionStorage.setItem('totalPrice', newPrice.toFixed(2));
+        });
+    });
 
+    // Add this to your form submission
+    document.querySelector('form').addEventListener('submit', function() {
+        // Ensure the latest price is stored before submission
+        const currentTotal = parseFloat(totalPriceElement.textContent.replace('PHP ', ''));
+        sessionStorage.setItem('totalPrice', currentTotal.toFixed(2));
+    });
             // Form validation
             const forms = document.querySelectorAll('.needs-validation');
             Array.prototype.slice.call(forms)

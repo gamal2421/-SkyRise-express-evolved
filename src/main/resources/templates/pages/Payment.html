@@ -212,7 +212,20 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Form validation
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the stored total price
+        const storedTotal = sessionStorage.getItem('totalPrice');
+        const basePrice = parseFloat(document.querySelector('.fw-bold .mb-0').textContent.replace('PHP ', ''));
+        
+        // If there's a stored price that's different from base, update it
+        if (storedTotal && parseFloat(storedTotal) !== basePrice) {
+            document.querySelector('.fw-bold .mb-0').textContent = 'PHP ' + storedTotal;
+        }
+        
+        // Rest of your existing code...
+    });
+            // Form validation
         (function () {
             'use strict'
             

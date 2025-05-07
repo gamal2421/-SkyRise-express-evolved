@@ -35,14 +35,27 @@ public String processPassengerDetails(@RequestParam Long flightId,
                                     @RequestParam String email,
                                     @RequestParam String phone,
                                     @RequestParam(required = false) String passportNumber,
+                                    @RequestParam String classType,
+                                    @RequestParam(required = false) String specialRequest,
                                     HttpSession session,
                                     Model model) {
-    
+                                        String dbClassType = classType;
+                                        if ("Business Class".equals(classType)) {
+                                            dbClassType = "Business";
+                                        } else if ("Premium Economy".equals(classType)) {
+                                            dbClassType = "Economy"; // or handle differently
+                                        } else if ("First Class".equals(classType)) {
+                                            dbClassType = "Business"; // or handle differently
+                                        }
+                                        
     session.setAttribute("passengerName", fullName);
     session.setAttribute("passengerEmail", email);
     session.setAttribute("passengerPhone", phone);
     session.setAttribute("passengerDob", dob);  // Add this line
     session.setAttribute("flightId", flightId);
+    session.setAttribute("specialRequest", specialRequest);
+    session.setAttribute("classType", dbClassType);
+
     return "redirect:/payment";
 }
 }

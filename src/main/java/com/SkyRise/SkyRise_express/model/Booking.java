@@ -14,6 +14,7 @@ public class Booking {
     private String passengerEmail;
     private String passengerPhone;
     private LocalDate passengerDob;
+
         private String bookingReference;  // Make sure this field exists
     @Transient // This field won't be persisted in database
     private String formattedDepartureDate;

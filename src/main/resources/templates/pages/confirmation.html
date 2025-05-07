@@ -187,56 +187,105 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('exportPdfBtn').addEventListener('click', function() {
-                // Get only the ticket content (the white card)
-                const element = document.getElementById('ticketContent');
-                
-                // Get ticket number or generate a fallback
-                let ticketNumber = 'ET-' + Math.random().toString(36).substring(2, 10).toUpperCase();
                 try {
-                    const ticketElement = document.querySelector('[th\\:text="${booking.eTicketNumber}"]');
-                    if (ticketElement) {
-                        ticketNumber = ticketElement.textContent.trim();
+                    // Create a container for PDF content
+                    const pdfContainer = document.createElement('div');
+                    pdfContainer.className = 'ticket-pdf';
+                    
+                    // Add logo/header
+                    const header = document.createElement('div');
+                    header.className = 'ticket-pdf-header';
+                    header.innerHTML = `
+                        <div class="ticket-pdf-logo">SKY RISE</div>
+                        <h2 class="ticket-pdf-title">E-Ticket</h2>
+                    `;
+                    pdfContainer.appendChild(header);
+                    
+                    // Add confirmation section
+                    const confirmationDiv = document.createElement('div');
+                    confirmationDiv.className = 'ticket-pdf-section';
+                    confirmationDiv.innerHTML = `
+                        <div class="ticket-pdf-section-header">Booking Confirmation</div>
+                        <div style="text-align: center; margin: 20px 0;">
+                            <i class="fas fa-check-circle" style="color: #28a745; font-size: 3rem;"></i>
+                        </div>
+                        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px;">
+                            <h4>E-Ticket Number: <strong>${document.querySelector('[th\\:text="${booking.eTicketNumber}"]')?.textContent || 'ET-' + Math.random().toString(36).substring(2, 10).toUpperCase()}</strong></h4>
+                            <p>Please keep this number for your records and present it at check-in.</p>
+                        </div>
+                    `;
+                    pdfContainer.appendChild(confirmationDiv);
+                    
+                    // Add flight details
+                    const flightCard = document.querySelector('.col-md-6:first-child .card');
+                    if (flightCard) {
+                        const flightDiv = document.createElement('div');
+                        flightDiv.className = 'ticket-pdf-section';
+                        flightDiv.innerHTML = `
+                            <div class="ticket-pdf-section-header">Flight Details</div>
+                            ${flightCard.querySelector('.card-body').innerHTML}
+                        `;
+                        pdfContainer.appendChild(flightDiv);
                     }
-                } catch (e) {
-                    console.log("Using generated ticket number");
+                    
+                    // Add passenger details
+                    const passengerCard = document.querySelector('.col-md-6:last-child .card');
+                    if (passengerCard) {
+                        const passengerDiv = document.createElement('div');
+                        passengerDiv.className = 'ticket-pdf-section';
+                        passengerDiv.innerHTML = `
+                            <div class="ticket-pdf-section-header">Passenger Details</div>
+                            ${passengerCard.querySelector('.card-body').innerHTML}
+                        `;
+                        pdfContainer.appendChild(passengerDiv);
+                    }
+                    
+                    // Add barcode placeholder
+                    const barcodeDiv = document.createElement('div');
+                    barcodeDiv.className = 'ticket-barcode';
+                    pdfContainer.appendChild(barcodeDiv);
+                    
+                    // Temporarily add to body for rendering
+                    document.body.appendChild(pdfContainer);
+                    
+                    // Generate PDF
+                    html2canvas(pdfContainer, {
+                        scale: 2,
+                        logging: true,
+                        useCORS: true,
+                        backgroundColor: '#ffffff'
+                    }).then(canvas => {
+                        const { jsPDF } = window.jspdf;
+                        const doc = new jsPDF('p', 'mm', 'a4');
+                        
+                        const imgData = canvas.toDataURL('image/png');
+                        const imgWidth = doc.internal.pageSize.getWidth() - 20; // Add margins
+                        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                        
+                        // Center the content
+                        const xPos = 10; // Left margin
+                        const yPos = 10; // Top margin
+                        
+                        doc.addImage(imgData, 'PNG', xPos, yPos, imgWidth, imgHeight);
+                        
+                        // Get ticket number for filename
+                        const ticketNumber = document.querySelector('[th\\:text="${booking.eTicketNumber}"]')?.textContent.trim() || 
+                                           'ET-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+                        
+                        doc.save('SkyRise_Ticket_' + ticketNumber + '.pdf');
+                        
+                        // Clean up
+                        document.body.removeChild(pdfContainer);
+                    }).catch(error => {
+                        console.error('PDF generation error:', error);
+                        alert('Failed to generate PDF. Please try again.');
+                        document.body.removeChild(pdfContainer);
+                    });
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while generating the PDF.');
                 }
-                
-                // Add temporary styling to ensure proper PDF rendering
-                element.style.boxShadow = 'none';
-                element.style.margin = '0';
-                element.style.borderRadius = '0';
-                
-                html2canvas(element, {
-                    scale: 2,
-                    logging: false,
-                    useCORS: true,
-                    allowTaint: true,
-                    scrollX: 0,
-                    scrollY: 0,
-                    backgroundColor: '#ffffff' // Ensure white background
-                }).then(canvas => {
-                    // Restore original styling
-                    element.style.boxShadow = '';
-                    element.style.margin = '';
-                    element.style.borderRadius = '';
-                    
-                    const { jsPDF } = window.jspdf;
-                    const doc = new jsPDF('p', 'mm', 'a4');
-                    
-                    const imgData = canvas.toDataURL('image/png');
-                    const imgWidth = doc.internal.pageSize.getWidth();
-                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                    
-                    // Center the ticket in the PDF
-                    const xPos = 0; // Left edge
-                    const yPos = (doc.internal.pageSize.getHeight() - imgHeight) / 2;
-                    
-                    doc.addImage(imgData, 'PNG', xPos, yPos, imgWidth, imgHeight);
-                    doc.save('SkyRise_Ticket_' + ticketNumber + '.pdf');
-                }).catch(error => {
-                    console.error('Error generating PDF:', error);
-                    alert('Error generating PDF. Please try again.');
-                });
             });
         });
     </script>

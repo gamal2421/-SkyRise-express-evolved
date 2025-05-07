@@ -78,6 +78,9 @@ public class PaymentController {
             String passengerPhone = (String) session.getAttribute("passengerPhone");
             String passengerDobStr = (String) session.getAttribute("passengerDob");
             String passengerEmail = (String) session.getAttribute("passengerEmail");
+            String specialRequest = (String) session.getAttribute("specialRequest");
+            String classType = (String) session.getAttribute("classType");
+
             
             if (user == null) {
                 // Guest booking flow — check or create temp user by email
@@ -128,10 +131,11 @@ public class PaymentController {
             booking.setPayment(savedPayment);
             booking.setBookingDate(java.time.LocalDateTime.now());
             booking.setStatus("Confirmed");
-            booking.setClassType("Economy");
+            booking.setClassType(classType);
             booking.setETicketNumber(generateETicketNumber());
             booking.setNoPassengers(1);
-            booking.setSpecialRequest("N/A");
+            booking.setSpecialRequest(
+    (specialRequest == null || specialRequest.trim().isEmpty()) ? "N/A" : specialRequest.trim());
             booking.setSeatNumber(null);
 
             // Add passenger info to booking (if your Booking entity has these fields)
