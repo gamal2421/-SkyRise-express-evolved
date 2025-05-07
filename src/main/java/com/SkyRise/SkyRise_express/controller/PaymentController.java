@@ -139,6 +139,7 @@ public class PaymentController {
             booking.setPassengerEmail(passengerEmail);
             booking.setPassengerPhone(passengerPhone);
             booking.setPassengerDob(LocalDate.parse(passengerDobStr));
+            booking.setBookingReference("BR-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase());
             
             Booking savedBooking = bookingRepository.save(booking);
             String assignedSeat = savedBooking.getSeatNumber(); // this should now contain e.g., "B3"

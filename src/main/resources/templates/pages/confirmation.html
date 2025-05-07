@@ -39,10 +39,55 @@
             background-color: var(--secondary);
             border-color: var(--secondary);
         }
+        /* PDF-specific styles */
+        .ticket-pdf {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .ticket-pdf-header {
+            background: linear-gradient(to right, #003355, #0171BB);
+            color: white;
+            padding: 15px;
+            border-radius: 5px 5px 0 0;
+            margin-bottom: 20px;
+        }
+        .ticket-pdf-logo {
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .ticket-pdf-title {
+            text-align: center;
+            margin: 20px 0;
+            color: #003355;
+        }
+        .ticket-pdf-section {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .ticket-pdf-section-header {
+            background-color: #f8f9fa;
+            padding: 10px;
+            margin: -15px -15px 15px -15px;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+            color: #003355;
+        }
+        .ticket-barcode {
+            text-align: center;
+            margin: 20px 0;
+            font-family: 'Libre Barcode 128', cursive;
+            font-size: 36px;
+        }
     </style>
 </head>
 <body>
-       <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(to right, #003355, #0171BB);">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(to right, #003355, #0171BB);">
         <div class="container">
             <a class="navbar-brand fw-bold" th:href="@{/}">SKY RISE</a>
             <div class="d-flex">
@@ -53,7 +98,7 @@
 
     <div class="container py-5">
         <!-- Confirmation Card -->
-        <div class="card confirmation-card mb-4">
+        <div class="card confirmation-card mb-4" id="ticketContent">
             <div class="card-header confirmation-header">
                 <h4 class="mb-0"><i class="fas fa-check-circle me-2"></i> Booking Confirmed</h4>
             </div>
@@ -69,7 +114,6 @@
                     <strong th:text="${booking.user?.email != null} ? ${booking.user.email} : ${booking.passengerEmail}"></strong>
                 </p>
 
-                
                 <div class="alert alert-primary mt-4">
                     <h5>Your E-Ticket Number: <span class="fw-bold" th:text="${booking.eTicketNumber}"></span></h5>
                     <p>Please keep this number for your records and present it at check-in.</p>
@@ -81,17 +125,13 @@
                             <div class="card-header bg-light">
                                 <h5 class="mb-0"><i class="fas fa-plane me-2"></i> Flight Details</h5>
                             </div>
-                        <div class="card-body">
-    <p class="mb-2"><strong th:text="${booking.flight?.flightNumber}"></strong></p>
-    <p class="mb-2" th:text="|From: ${booking.flight?.fromAirport}|"></p>
-    <p class="mb-2" th:text="|To: ${booking.flight?.toAirport}|"></p>
-<p class="mb-2" 
-  th:text="${formattedDepartureDate}">
-</p>    <!-- If you have time fields, add them like this: -->
- <p class="mb-0" 
-  th:text="${formattedDepartureDate}">
-</p>
-</div>
+                            <div class="card-body">
+                                <p class="mb-2"><strong th:text="${booking.flight?.flightNumber}"></strong></p>
+                                <p class="mb-2" th:text="|From: ${booking.flight?.fromAirport}|"></p>
+                                <p class="mb-2" th:text="|To: ${booking.flight?.toAirport}|"></p>
+                                <p class="mb-2" th:text="${formattedDepartureDate}"></p>
+                                <p class="mb-0" th:text="${formattedDepartureDate}"></p>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -102,7 +142,7 @@
                             <div class="card-body">
                                 <p class="mb-2"><strong th:text="${booking.passengerName}"></strong></p>
                                 <p class="mb-2" th:text="${booking.passengerEmail}"></p>
-                                <p class="mb-2" th:text="${booking.passengerPhone}"></p> <!-- Changed from phoneNumber to phone -->
+                                <p class="mb-2" th:text="${booking.passengerPhone}"></p>
                                 <p class="mb-0">Class: <span th:text="${booking.classType}"></span></p>
                                 <p class="mb-0" th:if="${booking.seatNumber != null}">Seat: <span th:text="${booking.seatNumber}"></span></p>
                             </div>
@@ -114,13 +154,14 @@
                     <a th:href="@{/}" class="btn btn-primary btn-lg px-4 me-md-2">
                         <i class="fas fa-home me-2"></i> Back to Home
                     </a>
-                    <a href="#" class="btn btn-outline-primary btn-lg px-4">
-                        <i class="fas fa-print me-2"></i> Print Ticket
-                    </a>
+                    <button id="exportPdfBtn" class="btn btn-outline-primary btn-lg px-4">
+                        <i class="fas fa-file-pdf me-2"></i> Export as PDF
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+
     <footer class="bg-dark text-white py-4 mt-5">
         <div class="container">
             <div class="row">
@@ -139,6 +180,65 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Add required libraries at the bottom of the body -->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('exportPdfBtn').addEventListener('click', function() {
+                // Get only the ticket content (the white card)
+                const element = document.getElementById('ticketContent');
+                
+                // Get ticket number or generate a fallback
+                let ticketNumber = 'ET-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+                try {
+                    const ticketElement = document.querySelector('[th\\:text="${booking.eTicketNumber}"]');
+                    if (ticketElement) {
+                        ticketNumber = ticketElement.textContent.trim();
+                    }
+                } catch (e) {
+                    console.log("Using generated ticket number");
+                }
+                
+                // Add temporary styling to ensure proper PDF rendering
+                element.style.boxShadow = 'none';
+                element.style.margin = '0';
+                element.style.borderRadius = '0';
+                
+                html2canvas(element, {
+                    scale: 2,
+                    logging: false,
+                    useCORS: true,
+                    allowTaint: true,
+                    scrollX: 0,
+                    scrollY: 0,
+                    backgroundColor: '#ffffff' // Ensure white background
+                }).then(canvas => {
+                    // Restore original styling
+                    element.style.boxShadow = '';
+                    element.style.margin = '';
+                    element.style.borderRadius = '';
+                    
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF('p', 'mm', 'a4');
+                    
+                    const imgData = canvas.toDataURL('image/png');
+                    const imgWidth = doc.internal.pageSize.getWidth();
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                    
+                    // Center the ticket in the PDF
+                    const xPos = 0; // Left edge
+                    const yPos = (doc.internal.pageSize.getHeight() - imgHeight) / 2;
+                    
+                    doc.addImage(imgData, 'PNG', xPos, yPos, imgWidth, imgHeight);
+                    doc.save('SkyRise_Ticket_' + ticketNumber + '.pdf');
+                }).catch(error => {
+                    console.error('Error generating PDF:', error);
+                    alert('Error generating PDF. Please try again.');
+                });
+            });
+        });
+    </script>
 </body>
 </html>

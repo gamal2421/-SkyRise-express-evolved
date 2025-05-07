@@ -11,6 +11,7 @@ import java.util.Optional;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findByUser(User user);
+   
     List<Booking> findByFlight_FlightId(Long flightId);
 @Query("SELECT b FROM Booking b LEFT JOIN FETCH b.flight LEFT JOIN FETCH b.user WHERE b.eTicketNumber = :eTicketNumber")
 Optional<Booking> findByETicketNumber(@Param("eTicketNumber") String eTicketNumber);

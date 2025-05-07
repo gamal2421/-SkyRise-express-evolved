@@ -14,6 +14,9 @@ public class Booking {
     private String passengerEmail;
     private String passengerPhone;
     private LocalDate passengerDob;
+        private String bookingReference;  // Make sure this field exists
+    @Transient // This field won't be persisted in database
+    private String formattedDepartureDate;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -192,7 +195,22 @@ public class Booking {
     public void setPassengerDob(LocalDate passengerDob) {
         this.passengerDob = passengerDob;
     }
+        public String getBookingReference() {
+        return bookingReference;
+    }
+    
+    public void setBookingReference(String bookingReference) {
+        this.bookingReference = bookingReference;
+    }
+        public String getFormattedDepartureDate() {
+        return formattedDepartureDate;
+    }
+    
+    public void setFormattedDepartureDate(String formattedDepartureDate) {
+        this.formattedDepartureDate = formattedDepartureDate;
+    }
     private static String generateETicketNumber() {
         return UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
+
 }

@@ -1,7 +1,9 @@
 package com.SkyRise.SkyRise_express.controller;
 
+import com.SkyRise.SkyRise_express.model.Booking;
 import com.SkyRise.SkyRise_express.model.Flight;
 import com.SkyRise.SkyRise_express.model.User;
+import com.SkyRise.SkyRise_express.repository.BookingRepository;
 import com.SkyRise.SkyRise_express.repository.FlightRepository;
 import com.SkyRise.SkyRise_express.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
@@ -17,8 +19,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -345,4 +350,73 @@ public List<ReportData> getDestinationData() {
             return value;
         }
     }
+ @Autowired
+private BookingRepository bookingRepository;
+@GetMapping("/my-bookings")
+public String showMyBookings(HttpSession session, Model model) {
+    User user = (User) session.getAttribute("user");
+    if (user == null) {
+        return "redirect:/login";
+    }
+    
+    List<Booking> bookings = bookingRepository.findByUser(user);
+    
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    
+    Map<Long, String> dateFormats = new HashMap<>();
+    Map<Long, String> timeFormats = new HashMap<>();
+    
+    bookings.forEach(booking -> {
+        if (booking.getFlight() != null) {
+            if (booking.getFlight().getDepartureDate() != null) {
+                String formattedDate = booking.getFlight().getDepartureDate().toInstant()
+                    .atZone(java.time.ZoneId.systemDefault())
+                    .toLocalDate()
+                    .format(dateFormatter);
+                dateFormats.put(booking.getBookingId(), formattedDate);
+            }
+            if (booking.getFlight().getDepartureTime() != null) {
+                String formattedTime = booking.getFlight().getDepartureTime().format(timeFormatter);
+                timeFormats.put(booking.getBookingId(), formattedTime);
+            }
+        }
+    });
+    
+    model.addAttribute("bookings", bookings);
+    model.addAttribute("dateFormats", dateFormats);
+    model.addAttribute("timeFormats", timeFormats);
+    return "pages/my-bookings";
+}
+@PostMapping("/cancel-booking/{id}")
+public String cancelBooking(@PathVariable Long id, HttpSession session, RedirectAttributes redirectAttributes) {
+    User user = (User) session.getAttribute("user");
+    if (user == null) {
+        return "redirect:/login";
+    }
+    
+    Optional<Booking> optionalBooking = bookingRepository.findById(id);
+    if (optionalBooking.isPresent()) {
+        Booking booking = optionalBooking.get();
+        
+        // Verify the booking belongs to the logged-in user
+        if (booking.getUser().getUserId().equals(user.getUserId())) {
+            // Update flight available seats
+            Flight flight = booking.getFlight();
+            flight.setAvailableSeats(flight.getAvailableSeats() + booking.getNoPassengers());
+            flightRepository.save(flight);
+            
+            // Delete the booking
+            bookingRepository.delete(booking);
+            
+            redirectAttributes.addFlashAttribute("success", "Booking successfully cancelled!");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "You can only cancel your own bookings");
+        }
+    } else {
+        redirectAttributes.addFlashAttribute("error", "Booking not found");
+    }
+    
+    return "redirect:/my-bookings";  // Changed from "/booking/my-bookings" to "/my-bookings"
+}
 }

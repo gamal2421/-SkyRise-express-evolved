@@ -232,8 +232,8 @@
                     <a class="nav-link text-white" th:href="@{/about}">About</a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link text-white" th:href="@{/login}">Manage</a>
-                </li>
+    <a class="nav-link text-white" th:href="@{/my-bookings}"><i class="fas fa-ticket-alt me-2"></i>My Bookings</a>
+</li>
                 <li class="nav-item mx-3">
                     <a class="nav-link text-white" th:href="@{/login}"><i class="fa-solid fa-user px-2"></i>Log out</a>
                 </li>
@@ -321,13 +321,13 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 mb-3">
-                        <label for="dob" class="form-label">Date of Birth</label>
-                        <input type="date" class="form-control" id="dob" name="dob" required>
-                        <div class="invalid-feedback">
-                            Please provide your date of birth.
-                        </div>
-                    </div>
+      <div class="col-md-4 mb-3">
+    <label for="dob" class="form-label">Date of Birth</label>
+    <input type="date" class="form-control" id="dob" name="dob" required>
+    <div class="invalid-feedback">
+        Please provide a valid date of birth (not in the future).
+    </div>
+</div>
 
                 
 
@@ -460,6 +460,27 @@
 </button>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+            document.addEventListener('DOMContentLoaded', function() {
+        const dobInput = document.getElementById('dob');
+        
+        // Set max date to today
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+        const yyyy = today.getFullYear();
+        const todayFormatted = `${yyyy}-${mm}-${dd}`;
+        
+        dobInput.setAttribute('max', todayFormatted);
+        
+        // Optional: Add client-side validation
+        dobInput.addEventListener('change', function() {
+            if (new Date(this.value) > today) {
+                this.setCustomValidity('Date of birth cannot be in the future');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+    });
         // Enhanced form validation and baggage selection
         (function () {
             'use strict'
