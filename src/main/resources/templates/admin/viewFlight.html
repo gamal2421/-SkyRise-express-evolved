@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Flight Details: ' + ${flight.flightNumber}"></title>
+</head>
+<body>
+    <h1 th:text="'Flight Details: ' + ${flight.flightNumber}">Flight Details</h1>
+
+    <div th:if="${flight}">
+        <p><strong>ID:</strong> <span th:text="${flight.id}"></span></p>
+        <p><strong>Flight Number:</strong> <span th:text="${flight.flightNumber}"></span></p>
+        <p><strong>Airline:</strong> <span th:text="${flight.airline.name}"></span></p>
+        <p><strong>Origin Airport:</strong> <span th:text="${flight.departureAirport.name}"></span></p>
+        <p><strong>Destination Airport:</strong> <span th:text="${flight.arrivalAirport.name}"></span></p>
+        <p><strong>Duration (minutes):</strong> <span th:text="${flight.durationInMinutes}"></span></p>
+
+        <!-- Add more flight details here if needed -->
+
+        <div>
+            <a href="#" th:href="@{/admin/flights/edit/{id}(id=${flight.id})}">Edit Flight</a>
+            <!-- Add Delete button/form later -->
+        </div>
+
+        <p><a href="#" th:href="@{/admin/flights}">Back to Manage Flights</a></p>
+        <p><a href="#" th:href="@{/}">Home</a></p>
+
+    </div>
+    <div th:unless="${flight}">
+        <p>Flight not found.</p>
+    </div>
+
+</body>
+</html> 

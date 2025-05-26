@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Assign Crew to Flight Instance</title>
+    <link rel="stylesheet" th:href="@{/styles/main.css}">
+</head>
+<body>
+    <h1>Assign Crew to Flight Instance</h1>
+
+    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+    <form th:action="@{/admin/flight-instances/assign-crew}" method="post">
+        <div>
+            <label for="flightInstance">Select Flight Instance:</label>
+            <select id="flightInstance" name="flightInstanceId" required>
+                <option value="">-- Select Flight Instance --</option>
+                <option th:each="instance : ${flightInstances}"
+                        th:value="${instance.id}"
+                        th:text="${instance.flight.flightNumber} - ${#dates.format(instance.departureDate, 'yyyy-MM-dd HH:mm')}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="pilots">Select Pilots (Ctrl+Click for multiple):</label>
+            <select id="pilots" name="pilotIds" multiple required>
+                <option th:each="pilot : ${pilots}"
+                        th:value="${pilot.id}"
+                        th:text="${pilot.name}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="crew">Select Crew (Ctrl+Click for multiple):</label>
+            <select id="crew" name="crewIds" multiple required>
+                <option th:each="crewMember : ${crew}"
+                        th:value="${crewMember.id}"
+                        th:text="${crewMember.name}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="frontDeskOfficers">Select Front Desk Officers (Ctrl+Click for multiple):</label>
+            <select id="frontDeskOfficers" name="frontDeskOfficerIds" multiple required>
+                <option th:each="fdo : ${frontDeskOfficers}"
+                        th:value="${fdo.id}"
+                        th:text="${fdo.name}"></option>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Assign Crew</button>
+        </div>
+    </form>
+
+    <p><a th:href="@{/admin/flight-instances}">Back to Flight Instances</a></p>
+
+</body>
+</html> 

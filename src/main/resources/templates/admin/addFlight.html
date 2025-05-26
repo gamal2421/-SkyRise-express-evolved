@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Flight</title>
+</head>
+<body>
+    <h1>Add New Flight</h1>
+
+    <form action="#" th:action="@{/admin/flights/new}" th:object="${flight}" method="post">
+        <div>
+            <label for="flightNumber">Flight Number:</label>
+            <input type="text" id="flightNumber" th:field="*{flightNumber}" required/>
+        </div>
+        <div>
+            <label for="airline">Airline:</label>
+            <select id="airline" th:field="*{airline}" required>
+                <option th:each="airline : ${airlines}" th:value="${airline.id}" th:text="${airline.name}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="departureAirport">Origin Airport:</label>
+            <select id="departureAirport" th:field="*{departureAirport}" required>
+                <option th:each="airport : ${airports}" th:value="${airport.id}" th:text="${airport.name}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="arrivalAirport">Destination Airport:</label>
+            <select id="arrivalAirport" th:field="*{arrivalAirport}" required>
+                <option th:each="airport : ${airports}" th:value="${airport.id}" th:text="${airport.name}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="durationInMinutes">Duration (minutes):</label>
+            <input type="number" id="durationInMinutes" th:field="*{durationInMinutes}" required/>
+        </div>
+        <div>
+            <button type="submit">Add Flight</button>
+        </div>
+    </form>
+
+    <p><a href="#" th:href="@{/admin/flights}">Back to Manage Flights</a></p>
+    <p><a href="#" th:href="@{/}">Home</a></p>
+</body>
+</html> 

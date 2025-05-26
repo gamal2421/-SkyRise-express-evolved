@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Aircraft Details: ' + ${aircraft.model}"></title>
+</head>
+<body>
+    <h1 th:text="'Aircraft Details: ' + ${aircraft.model}">Aircraft Details</h1>
+
+    <div th:if="${aircraft}">
+        <p><strong>ID:</strong> <span th:text="${aircraft.id}"></span></p>
+        <p><strong>Model:</strong> <span th:text="${aircraft.model}"></span></p>
+        <p><strong>Manufacturer:</strong> <span th:text="${aircraft.manufacturer}"></span></p>
+        <p><strong>Total Seats:</strong> <span th:text="${aircraft.totalSeats}"></span></p>
+        <!-- Add more aircraft details here if needed -->
+
+        <div>
+            <a href="#" th:href="@{/admin/aircraft/edit/{id}(id=${aircraft.id})}">Edit Aircraft</a>
+            <!-- Add Delete button/form later -->
+        </div>
+
+        <p><a href="#" th:href="@{/admin/aircraft}">Back to Manage Aircraft</a></p>
+        <p><a href="#" th:href="@{/}">Home</a></p>
+
+    </div>
+    <div th:unless="${aircraft}">
+        <p>Aircraft not found.</p>
+    </div>
+
+</body>
+</html> 

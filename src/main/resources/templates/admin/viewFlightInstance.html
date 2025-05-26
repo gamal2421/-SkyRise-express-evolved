@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Flight Instance Details: ' + ${flightInstance.id}"></title>
+</head>
+<body>
+    <h1 th:text="'Flight Instance Details: ' + ${flightInstance.id}">Flight Instance Details</h1>
+
+    <div th:if="${flightInstance}">
+        <p><strong>ID:</strong> <span th:text="${flightInstance.id}"></span></p>
+        <p><strong>Flight Number:</strong> <span th:text="${flightInstance.flight.flightNumber}"></span></p>
+        <p><strong>Departure Date:</strong> <span th:text="${flightInstance.departureDate}"></span></p>
+        <p><strong>Departure Time:</strong> <span th:text="${flightInstance.departureTime}"></span></p>
+        <p><strong>Arrival Date:</strong> <span th:text="${flightInstance.arrivalDate}"></span></p>
+        <p><strong>Status:</strong> <span th:text="${flightInstance.status}"></span></p>
+        <p><strong>Aircraft:</strong> <span th:text="${flightInstance.aircraft != null ? flightInstance.aircraft.model : 'N/A'}"></span></p>
+        <!-- Add more flight instance details here if needed, e.g., Gate -->
+         <p><strong>Gate:</strong> <span th:text="${flightInstance.gate != null ? flightInstance.gate : 'N/A'}"></span></p>
+
+        <h3>Associated Schedules:</h3>
+        <div th:if="${flightInstance.weeklySchedule != null}">
+            <p><strong>Weekly Schedule ID:</strong> <span th:text="${flightInstance.weeklySchedule.id}"></span></p>
+            <!-- Add more weekly schedule details if needed -->
+        </div>
+        <div th:if="${flightInstance.customSchedule != null}">
+            <p><strong>Custom Schedule ID:</strong> <span th:text="${flightInstance.customSchedule.id}"></span></p>
+            <!-- Add more custom schedule details if needed -->
+        </div>
+         <div th:if="${flightInstance.weeklySchedule == null and flightInstance.customSchedule == null}">
+             <p>No specific schedule pattern associated.</p>
+         </div>
+
+        <!-- Placeholder for displaying associated passengers and crew -->
+        <!-- These would require fetching related data, potentially with dedicated service methods -->
+        <h3>Passengers:</h3>
+        <p> (List passengers here, if implemented) </p>
+
+        <h3>Assigned Crew:</h3>
+        <p> (List assigned crew here, if implemented) </p>
+
+        <div>
+            <a href="#" th:href="@{/admin/flight-instances/edit/{id}(id=${flightInstance.id})}">Edit Flight Instance</a>
+            | 
+             <form th:action="@{/admin/flight-instances/cancel/{id}(id=${flightInstance.id})}" method="post" style="display: inline;">
+                 <button type="submit" onclick="return confirm('Are you sure you want to cancel this flight instance?');" th:disabled="${flightInstance.status == T(com.SkyRise.SkyRise_express.model.FlightStatus).Cancelled}">Cancel Flight Instance</button>
+             </form>
+            <!-- Add Delete button/form later if needed -->
+        </div>
+
+        <p><a href="#" th:href="@{/admin/flight-instances}">Back to Manage Flight Instances</a></p>
+        <p><a href="#" th:href="@{/}">Home</a></p>
+
+    </div>
+    <div th:unless="${flightInstance}">
+        <p>Flight instance not found.</p>
+    </div>
+
+</body>
+</html> 

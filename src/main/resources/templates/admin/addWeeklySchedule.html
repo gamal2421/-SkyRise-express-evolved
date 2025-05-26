@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Weekly Schedule</title>
+</head>
+<body>
+    <h1>Add New Weekly Schedule</h1>
+
+    <form action="#" th:action="@{/admin/schedules/weekly/new}" th:object="${weeklySchedule}" method="post">
+        <div>
+            <label for="dayOfWeek">Day of Week:</label>
+            <select id="dayOfWeek" th:field="*{dayOfWeek}" required>
+                <option th:each="day : ${T(java.time.DayOfWeek).values()}" th:value="${day}" th:text="${day}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="departureTime">Departure Time:</label>
+            <input type="time" id="departureTime" th:field="*{departureTime}" required/>
+        </div>
+        <div>
+            <button type="submit">Add Weekly Schedule</button>
+        </div>
+    </form>
+
+    <p><a href="#" th:href="@{/admin/schedules/weekly}">Back to Manage Weekly Schedules</a></p>
+    <p><a href="#" th:href="@{/}">Home</a></p>
+</body>
+</html> 

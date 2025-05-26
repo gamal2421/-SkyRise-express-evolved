@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Custom Schedule</title>
+</head>
+<body>
+    <h1>Add New Custom Schedule</h1>
+
+    <form action="#" th:action="@{/admin/schedules/custom/new}" th:object="${customSchedule}" method="post">
+        <div>
+            <label for="customDate">Custom Date:</label>
+            <input type="date" id="customDate" th:field="*{customDate}" required/>
+        </div>
+        <div>
+            <button type="submit">Add Custom Schedule</button>
+        </div>
+    </form>
+
+    <p><a href="#" th:href="@{/admin/schedules/custom}">Back to Manage Custom Schedules</a></p>
+    <p><a href="#" th:href="@{/}">Home</a></p>
+</body>
+</html> 

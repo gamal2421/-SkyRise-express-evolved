@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Weekly Schedule Details: ' + ${weeklySchedule.id}"></title>
+</head>
+<body>
+    <h1 th:text="'Weekly Schedule Details: ' + ${weeklySchedule.id}">Weekly Schedule Details</h1>
+
+    <div th:if="${weeklySchedule}">
+        <p><strong>ID:</strong> <span th:text="${weeklySchedule.id}"></span></p>
+        <p><strong>Day of Week:</strong> <span th:text="${weeklySchedule.dayOfWeek}"></span></p>
+        <p><strong>Departure Time:</strong> <span th:text="${weeklySchedule.departureTime}"></span></p>
+
+        <!-- Add more schedule details here if needed -->
+
+        <div>
+            <a href="#" th:href="@{/admin/schedules/weekly/edit/{id}(id=${weeklySchedule.id})}">Edit Weekly Schedule</a>
+            <!-- Add Delete button/form later -->
+        </div>
+
+        <p><a href="#" th:href="@{/admin/schedules/weekly}">Back to Manage Weekly Schedules</a></p>
+        <p><a href="#" th:href="@{/}">Home</a></p>
+
+    </div>
+    <div th:unless="${weeklySchedule}">
+        <p>Weekly schedule not found.</p>
+    </div>
+
+</body>
+</html> 

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Flight Search</title>
+</head>
+<body>
+    <h1>Search for Flights</h1>
+    <form action="#" th:action="@{/flights/search}" method="post">
+        <div>
+            <label for="departureDate">Departure Date:</label>
+            <input type="date" id="departureDate" name="departureDate" required/>
+        </div>
+        <div>
+            <label for="origin">Origin Airport:</label>
+            <input type="text" id="origin" name="origin" required/>
+        </div>
+        <div>
+            <label for="destination">Destination Airport:</label>
+            <input type="text" id="destination" name="destination" required/>
+        </div>
+        <div>
+            <button type="submit">Search</button>
+        </div>
+    </form>
+</body>
+</html> 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Reservations</title>
+</head>
+<body>
+    <h1>My Reservations</h1>
+
+    <div th:if="${reservations.isEmpty()}">
+        <p>You have no reservations yet.</p>
+    </div>
+
+    <div th:unless="${reservations.isEmpty()}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Reservation Number</th>
+                    <th>Flight Number</th>
+                    <th>Departure Date</th>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Passenger Name</th>
+                    <th>Seat Number</th>
+                    <th>Status</th>
+                    <th>Details</th>
+                    <th>Cancel</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="reservation : ${reservations}">
+                    <td th:text="${reservation.reservationNumber}"></td>
+                    <td th:text="${reservation.flightInstance.flight.flightNumber}"></td>
+                    <td th:text="${reservation.flightInstance.departureDate}"></td>
+                    <td th:text="${reservation.flightInstance.flight.origin.name}"></td>
+                    <td th:text="${reservation.flightInstance.flight.destination.name}"></td>
+                    <td th:text="${reservation.passenger.name}"></td>
+                    <td th:text="${reservation.flightSeat.seat.seatNumber}"></td>
+                    <!-- Assuming Reservation entity has a status property -->
+                    <td th:text="${reservation.status}"></td>
+                    <td><a href="#" th:href="@{/reservations/{reservationNumber}(reservationNumber=${reservation.reservationNumber})}">Details</a></td>
+                    <td>
+                        <form th:action="@{/reservations/cancel/{reservationNumber}(reservationNumber=${reservation.reservationNumber})}" method="post">
+                            <button type="submit" th:disabled="${reservation.status == T(com.SkyRise.SkyRise_express.model.ReservationStatus).CANCELLED}">Cancel</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p><a href="#" th:href="@{/}">Home</a></p>
+</body>
+</html> 

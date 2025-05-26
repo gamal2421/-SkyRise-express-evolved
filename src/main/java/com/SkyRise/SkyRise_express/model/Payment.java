@@ -1,58 +1,63 @@
 package com.SkyRise.SkyRise_express.model;
 
-import jakarta.persistence.*;
-import java.sql.Timestamp;
-import java.util.Date;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
 
 @Entity
-public class Payment {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class Payment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long paymentId;
-    
-    private String cardNumber;
-    private Date cardExpiry;
-    private String paymentStatus;
-    private Timestamp paymentDate;
-    
+    private Long id;
+    private double amount;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus status;
+
+    @OneToOne
+    @JoinColumn(name = "reservation_number") // Assuming a foreign key column named reservation_number
+    private Reservation reservation;
+
     // Getters and Setters
-    public Long getPaymentId() {
-        return paymentId;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setPaymentId(Long paymentId) {
-        this.paymentId = paymentId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getCardNumber() {
-        return cardNumber;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
-    public Date getCardExpiry() {
-        return cardExpiry;
+    public PaymentStatus getStatus() {
+        return status;
     }
 
-    public void setCardExpiry(Date cardExpiry) {
-        this.cardExpiry = cardExpiry;
+    public void setStatus(PaymentStatus status) {
+        this.status = status;
     }
 
-    public String getPaymentStatus() {
-        return paymentStatus;
+    public Reservation getReservation() {
+        return reservation;
     }
 
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
     }
-
-    public Timestamp getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(Timestamp paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-}
+} 

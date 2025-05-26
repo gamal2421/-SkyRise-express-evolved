@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Custom Schedules</title>
+</head>
+<body>
+    <h1>Manage Custom Schedules</h1>
+
+    <div>
+        <a href="#" th:href="@{/admin/schedules/custom/new}">Add New Custom Schedule</a>
+    </div>
+
+    <div th:if="${customSchedules.isEmpty()}">
+        <p>No custom schedules found.</p>
+    </div>
+
+    <div th:unless="${customSchedules.isEmpty()}">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Custom Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="schedule : ${customSchedules}">
+                    <td th:text="${schedule.id}"></td>
+                    <td th:text="${schedule.customDate}"></td>
+                    <td>
+                        <a href="#" th:href="@{/admin/schedules/custom/{id}(id=${schedule.id})}">View</a>
+                        | <a href="#" th:href="@{/admin/schedules/custom/edit/{id}(id=${schedule.id})}">Edit</a>
+                        | <a href="#" th:href="@{/admin/schedules/custom/delete/{id}(id=${schedule.id})}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p><a href="#" th:href="@{/}">Home</a></p>
+</body>
+</html> 

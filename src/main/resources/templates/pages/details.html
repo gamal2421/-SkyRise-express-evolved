@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Flight ' + ${flightInstance.flight.flightNumber} + ' Details'"></title>
+</head>
+<body>
+    <h1 th:text="'Flight ' + ${flightInstance.flight.flightNumber} + ' Details'">Flight Details</h1>
+
+    <div th:if="${flightInstance}">
+        <p><strong>Flight Number:</strong> <span th:text="${flightInstance.flight.flightNumber}"></span></p>
+        <p><strong>Origin:</strong> <span th:text="${flightInstance.flight.origin.name}"></span></p>
+        <p><strong>Destination:</strong> <span th:text="${flightInstance.flight.destination.name}"></span></p>
+        <p><strong>Departure Date:</strong> <span th:text="${flightInstance.departureDate}"></span></p>
+        <p><strong>Departure Time:</strong> <span th:text="${flightInstance.departureTime}"></span></p>
+        <p><strong>Arrival Time (Est.):</strong> <span th:text="${flightInstance.flight.arrivalTime}"></span></p>
+        <p><strong>Airline:</strong> <span th:text="${flightInstance.flight.airline.name}"></span></p>
+        <p><strong>Aircraft:</strong> <span th:text="${flightInstance.aircraft.model}"></span></p>
+        <p><strong>Status:</strong> <span th:text="${flightInstance.status}"></span></p>
+        <!-- Add more flight instance details here as needed -->
+
+        <h2>Available Seats:</h2>
+        <div th:if="${flightInstance.flightSeats.isEmpty()}">
+            <p>No seats available for this flight instance.</p>
+        </div>
+        <div th:unless="${flightInstance.flightSeats.isEmpty()}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Seat Number</th>
+                        <th>Seat Type</th>
+                        <th>Available</th>
+                        <th>Select</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="flightSeat : ${flightInstance.flightSeats}">
+                        <td th:text="${flightSeat.seat.seatNumber}"></td>
+                        <td th:text="${flightSeat.seat.seatType}"></td>
+                        <td>
+                            <span th:if="${flightSeat.reservation == null}">Yes</span>
+                            <span th:unless="${flightSeat.reservation == null}">No</span>
+                        </td>
+                        <td>
+                             <input type="radio" name="selectedFlightSeatId" th:value="${flightSeat.id}" th:disabled="${flightSeat.reservation != null}"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Make a Reservation</h2>
+        <form action="#" th:action="@{/reservations}" method="post">
+             <input type="hidden" name="flightInstanceId" th:value="${flightInstance.id}"/>
+            <div>
+                <label for="passengerName">Passenger Name:</label>
+                <input type="text" id="passengerName" name="passengerName" required/>
+            </div>
+            <div>
+                 <label for="selectedFlightSeatId">Select Seat:</label>
+                 <!-- The radio buttons above handle seat selection, this label is for accessibility -->
+            </div>
+            <div>
+                <button type="submit">Reserve Seat</button>
+            </div>
+        </form>
+
+        <p><a href="#" th:href="@{/flights/search}">Back to Search Results</a></p>
+        <p><a href="#" th:href="@{/}">Home</a></p>
+
+    </div>
+    <div th:unless="${flightInstance}">
+        <p>Flight instance not found.</p>
+    </div>
+
+</body>
+</html> 

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Custom Schedule Details: ' + ${customSchedule.id}"></title>
+</head>
+<body>
+    <h1 th:text="'Custom Schedule Details: ' + ${customSchedule.id}">Custom Schedule Details</h1>
+
+    <div th:if="${customSchedule}">
+        <p><strong>ID:</strong> <span th:text="${customSchedule.id}"></span></p>
+        <p><strong>Custom Date:</strong> <span th:text="${customSchedule.customDate}"></span></p>
+
+        <!-- Add more schedule details here if needed -->
+
+        <div>
+            <a href="#" th:href="@{/admin/schedules/custom/edit/{id}(id=${customSchedule.id})}">Edit Custom Schedule</a>
+            <!-- Add Delete button/form later -->
+        </div>
+
+        <p><a href="#" th:href="@{/admin/schedules/custom}">Back to Manage Custom Schedules</a></p>
+        <p><a href="#" th:href="@{/}">Home</a></p>
+
+    </div>
+    <div th:unless="${customSchedule}">
+        <p>Custom schedule not found.</p>
+    </div>
+
+</body>
+</html> 

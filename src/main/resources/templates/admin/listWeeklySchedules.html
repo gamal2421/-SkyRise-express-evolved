@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Weekly Schedules</title>
+</head>
+<body>
+    <h1>Manage Weekly Schedules</h1>
+
+    <div>
+        <a href="#" th:href="@{/admin/schedules/weekly/new}">Add New Weekly Schedule</a>
+    </div>
+
+    <div th:if="${weeklySchedules.isEmpty()}">
+        <p>No weekly schedules found.</p>
+    </div>
+
+    <div th:unless="${weeklySchedules.isEmpty()}">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Day of Week</th>
+                    <th>Departure Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="schedule : ${weeklySchedules}">
+                    <td th:text="${schedule.id}"></td>
+                    <td th:text="${schedule.dayOfWeek}"></td>
+                    <td th:text="${schedule.departureTime}"></td>
+                    <td>
+                        <a href="#" th:href="@{/admin/schedules/weekly/{id}(id=${schedule.id})}">View</a>
+                        | <a href="#" th:href="@{/admin/schedules/weekly/edit/{id}(id=${schedule.id})}">Edit</a>
+                        | <a href="#" th:href="@{/admin/schedules/weekly/delete/{id}(id=${schedule.id})}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p><a href="#" th:href="@{/}">Home</a></p>
+</body>
+</html> 

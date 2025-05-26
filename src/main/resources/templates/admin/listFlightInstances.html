@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Flight Instances</title>
+</head>
+<body>
+    <h1>Manage Flight Instances</h1>
+
+    <div>
+        <a href="#" th:href="@{/admin/schedules/generate-instances}">Generate New Flight Instances</a>
+        | <a href="#" th:href="@{/admin/schedules/weekly}">Manage Weekly Schedules</a>
+        | <a href="#" th:href="@{/admin/schedules/custom}">Manage Custom Schedules</a>
+    </div>
+
+    <div th:if="${flightInstances.isEmpty()}">
+        <p>No flight instances found.</p>
+    </div>
+
+    <div th:unless="${flightInstances.isEmpty()}">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Flight Number</th>
+                    <th>Departure Date</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Date</th>
+                    <th>Status</th>
+                    <th>Aircraft</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="instance : ${flightInstances}">
+                    <td th:text="${instance.id}"></td>
+                    <td th:text="${instance.flight.flightNumber}"></td>
+                    <td th:text="${instance.departureDate}"></td>
+                    <td th:text="${instance.departureTime}"></td>
+                    <td th:text="${instance.arrivalDate}"></td>
+                    <td th:text="${instance.status}"></td>
+                    <td th:text="${instance.aircraft != null ? instance.aircraft.model : 'N/A'}"></td>
+                    <td>
+                        <a href="#" th:href="@{/admin/flight-instances/{id}(id=${instance.id})}">View</a>
+                        | <a href="#" th:href="@{/admin/flight-instances/edit/{id}(id=${instance.id})}">Edit</a>
+                        | <a href="#" th:href="@{/admin/flight-instances/cancel/{id}(id=${instance.id})}">Cancel</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+     <div th:if="${success}">
+         <p th:text="${success}" style="color: green;"></p>
+     </div>
+     <div th:if="${error}">
+         <p th:text="${error}" style="color: red;"></p>
+     </div>
+
+    <p><a href="#" th:href="@{/}">Home</a></p>
+</body>
+</html> 

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Flight Instances</title>
+</head>
+<body>
+    <h1>Generate Flight Instances</h1>
+
+    <form action="#" th:action="@{/admin/schedules/generate-instances}" method="post">
+        <div>
+            <label for="flight">Select Flight:</label>
+            <select id="flight" name="flightId" required>
+                <option value="">-- Select a Flight --</option>
+                <option th:each="flight : ${flights}" th:value="${flight.id}" th:text="${flight.flightNumber} + ' (' + ${flight.departureAirport.name} + ' to ' + ${flight.arrivalAirport.name} + ')'"></option>
+            </select>
+        </div>
+
+        <div>
+            <label for="scheduleType">Select Schedule Type:</label>
+            <select id="scheduleType" name="scheduleType" required onchange="toggleSchedules()">
+                <option value="">-- Select Type --</option>
+                <option value="weekly">Weekly Schedule</option>
+                <option value="custom">Custom Schedule</option>
+            </select>
+        </div>
+
+        <div id="weeklyScheduleDiv" style="display: none;">
+            <label for="weeklySchedule">Select Weekly Schedule:</label>
+            <select id="weeklySchedule" name="weeklyScheduleId">
+                 <option value="">-- Select Weekly Schedule --</option>
+                 <option th:each="schedule : ${weeklySchedules}" th:value="${schedule.id}" th:text="${schedule.dayOfWeek} + ' at ' + ${schedule.departureTime}"></option>
+            </select>
+        </div>
+
+        <div id="customScheduleDiv" style="display: none;">
+            <label for="customSchedule">Select Custom Schedule:</label>
+            <select id="customSchedule" name="customScheduleId">
+                 <option value="">-- Select Custom Schedule --</option>
+                 <option th:each="schedule : ${customSchedules}" th:value="${schedule.id}" th:text="${schedule.customDate}"></option>
+            </select>
+        </div>
+
+        <div>
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" required/>
+        </div>
+
+        <div>
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate" required/>
+        </div>
+
+        <div>
+            <button type="submit">Generate Instances</button>
+        </div>
+    </form>
+
+    <script>
+        function toggleSchedules() {
+            const scheduleType = document.getElementById('scheduleType').value;
+            const weeklyScheduleDiv = document.getElementById('weeklyScheduleDiv');
+            const customScheduleDiv = document.getElementById('customScheduleDiv');
+
+            if (scheduleType === 'weekly') {
+                weeklyScheduleDiv.style.display = 'block';
+                customScheduleDiv.style.display = 'none';
+                document.getElementById('weeklySchedule').setAttribute('required', 'required');
+                document.getElementById('customSchedule').removeAttribute('required');
+            } else if (scheduleType === 'custom') {
+                weeklyScheduleDiv.style.display = 'none';
+                customScheduleDiv.style.display = 'block';
+                 document.getElementById('customSchedule').setAttribute('required', 'required');
+                 document.getElementById('weeklySchedule').removeAttribute('required');
+            } else {
+                weeklyScheduleDiv.style.display = 'none';
+                customScheduleDiv.style.display = 'none';
+                 document.getElementById('weeklySchedule').removeAttribute('required');
+                 document.getElementById('customSchedule').removeAttribute('required');
+            }
+        }
+         // Initial call to set the correct initial state
+         toggleSchedules();
+    </script>
+
+     <div th:if="${success}">
+         <p th:text="${success}" style="color: green;"></p>
+     </div>
+     <div th:if="${error}">
+         <p th:text="${error}" style="color: red;"></p>
+     </div>
+
+    <p><a href="#" th:href="@{/}">Home</a></p>
+</body>
+</html> 

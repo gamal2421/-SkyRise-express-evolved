@@ -2,292 +2,42 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Confirmation | NobleSky Express</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #235477;
-            --secondary: #ffad4c;
-            --success: #28a745;
-        }
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #f8f9fa;
-        }
-        .confirmation-card {
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border: none;
-        }
-        .confirmation-header {
-            background: linear-gradient(to right, #003355, #0171BB);
-            color: white;
-            border-radius: 10px 10px 0 0 !important;
-        }
-        .success-icon {
-            color: var(--success);
-            font-size: 4rem;
-        }
-        .btn-primary {
-            background-color: var(--primary);
-            border-color: var(--primary);
-        }
-        .btn-primary:hover {
-            background-color: var(--secondary);
-            border-color: var(--secondary);
-        }
-        /* PDF-specific styles */
-        .ticket-pdf {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: white;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-        .ticket-pdf-header {
-            background: linear-gradient(to right, #003355, #0171BB);
-            color: white;
-            padding: 15px;
-            border-radius: 5px 5px 0 0;
-            margin-bottom: 20px;
-        }
-        .ticket-pdf-logo {
-            font-weight: bold;
-            font-size: 24px;
-        }
-        .ticket-pdf-title {
-            text-align: center;
-            margin: 20px 0;
-            color: #003355;
-        }
-        .ticket-pdf-section {
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 15px;
-        }
-        .ticket-pdf-section-header {
-            background-color: #f8f9fa;
-            padding: 10px;
-            margin: -15px -15px 15px -15px;
-            border-bottom: 1px solid #ddd;
-            font-weight: bold;
-            color: #003355;
-        }
-        .ticket-barcode {
-            text-align: center;
-            margin: 20px 0;
-            font-family: 'Libre Barcode 128', cursive;
-            font-size: 36px;
-        }
-    </style>
+    <title>Reservation Confirmation</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(to right, #003355, #0171BB);">
-        <div class="container">
-            <a class="navbar-brand fw-bold" th:href="@{/}">SKY RISE</a>
-            <div class="d-flex">
-                <a class="btn btn-outline-light" th:href="@{/logout}">Logout</a>
-            </div>
-        </div>
-    </nav>
+    <h1>Reservation Confirmation</h1>
 
-    <div class="container py-5">
-        <!-- Confirmation Card -->
-        <div class="card confirmation-card mb-4" id="ticketContent">
-            <div class="card-header confirmation-header">
-                <h4 class="mb-0"><i class="fas fa-check-circle me-2"></i> Booking Confirmed</h4>
-            </div>
-            <div class="card-body text-center py-5">
-                <div class="success-icon mb-4">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <h2 class="text-success mb-3">Thank You for Your Booking!</h2>
-                <p class="lead">Your flight has been successfully booked.</p>
+    <div th:if="${reservation}">
+        <p>Your reservation was successful!</p>
+        <p><strong>Reservation Number:</strong> <span th:text="${reservation.reservationNumber}"></span></p>
 
-                <p>
-                    An email confirmation has been sent to 
-                    <strong th:text="${booking.user?.email != null} ? ${booking.user.email} : ${booking.passengerEmail}"></strong>
-                </p>
+        <h2>Flight Details</h2>
+        <p><strong>Flight Number:</strong> <span th:text="${reservation.flightInstance.flight.flightNumber}"></span></p>
+        <p><strong>Origin:</strong> <span th:text="${reservation.flightInstance.flight.origin.name}"></span></p>
+        <p><strong>Destination:</strong> <span th:text="${reservation.flightInstance.flight.destination.name}"></span></p>
+        <p><strong>Departure Date:</strong> <span th:text="${reservation.flightInstance.departureDate}"></span></p>
+        <p><strong>Departure Time:</strong> <span th:text="${reservation.flightInstance.departureTime}"></span></p>
+        <p><strong>Arrival Time (Est.):</strong> <span th:text="${reservation.flightInstance.flight.arrivalTime}"></span></p>
+        <p><strong>Airline:</strong> <span th:text="${reservation.flightInstance.flight.airline.name}"></span></p>
+        <p><strong>Aircraft:</strong> <span th:text="${reservation.flightInstance.aircraft.model}"></span></p>
 
-                <div class="alert alert-primary mt-4">
-                    <h5>Your E-Ticket Number: <span class="fw-bold" th:text="${booking.eTicketNumber}"></span></h5>
-                    <p>Please keep this number for your records and present it at check-in.</p>
-                </div>
-                
-                <div class="row mt-5">
-                    <div class="col-md-6 mb-3">
-                        <div class="card h-100">
-                            <div class="card-header bg-light">
-                                <h5 class="mb-0"><i class="fas fa-plane me-2"></i> Flight Details</h5>
-                            </div>
-                            <div class="card-body">
-                                <p class="mb-2"><strong th:text="${booking.flight?.flightNumber}"></strong></p>
-                                <p class="mb-2" th:text="|From: ${booking.flight?.fromAirport}|"></p>
-                                <p class="mb-2" th:text="|To: ${booking.flight?.toAirport}|"></p>
-                                <p class="mb-2" th:text="${formattedDepartureDate}"></p>
-                                <p class="mb-0" th:text="${formattedDepartureDate}"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="card h-100">
-                            <div class="card-header bg-light">
-                                <h5 class="mb-0"><i class="fas fa-user me-2"></i> Passenger Details</h5>
-                            </div>
-                            <div class="card-body">
-                                <p class="mb-2"><strong th:text="${booking.passengerName}"></strong></p>
-                                <p class="mb-2" th:text="${booking.passengerEmail}"></p>
-                                <p class="mb-2" th:text="${booking.passengerPhone}"></p>
-                                <p class="mb-0">Class: <span th:text="${booking.classType}"></span></p>
-                                <p class="mb-0" th:if="${booking.seatNumber != null}">Seat: <span th:text="${booking.seatNumber}"></span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
-                    <a th:href="@{/}" class="btn btn-primary btn-lg px-4 me-md-2">
-                        <i class="fas fa-home me-2"></i> Back to Home
-                    </a>
-                    <button id="exportPdfBtn" class="btn btn-outline-primary btn-lg px-4">
-                        <i class="fas fa-file-pdf me-2"></i> Export as PDF
-                    </button>
-                </div>
-            </div>
-        </div>
+        <h2>Passenger Details</h2>
+        <p><strong>Name:</strong> <span th:text="${reservation.passenger.name}"></span></p>
+        <!-- Add more passenger details if available in the Passenger model -->
+
+        <h2>Seat Details</h2>
+        <p><strong>Seat Number:</strong> <span th:text="${reservation.flightSeat.seat.seatNumber}"></span></p>
+        <p><strong>Seat Type:</strong> <span th:text="${reservation.flightSeat.seat.seatType}"></span></p>
+
+        <!-- Add more reservation details if needed (e.g., status, booking date, price if available) -->
+
+        <p><a href="#" th:href="@{/flights/search}">Search for another flight</a></p>
+        <p><a href="#" th:href="@{/}">Home</a></p>
+
+    </div>
+    <div th:unless="${reservation}">
+        <p>Reservation not found.</p>
     </div>
 
-    <footer class="bg-dark text-white py-4 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>NobleSky Express</h5>
-                    <p>Your trusted partner for comfortable and reliable air travel.</p>
-                </div>
-                <div class="col-md-6">
-                    <h5>Contact Us</h5>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-envelope me-2"></i> support@nobleskyexpress.com</li>
-                        <li><i class="fas fa-phone me-2"></i> +639-497-1233-456</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Add required libraries at the bottom of the body -->
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('exportPdfBtn').addEventListener('click', function() {
-                try {
-                    // Create a container for PDF content
-                    const pdfContainer = document.createElement('div');
-                    pdfContainer.className = 'ticket-pdf';
-                    
-                    // Add logo/header
-                    const header = document.createElement('div');
-                    header.className = 'ticket-pdf-header';
-                    header.innerHTML = `
-                        <div class="ticket-pdf-logo">SKY RISE</div>
-                        <h2 class="ticket-pdf-title">E-Ticket</h2>
-                    `;
-                    pdfContainer.appendChild(header);
-                    
-                    // Add confirmation section
-                    const confirmationDiv = document.createElement('div');
-                    confirmationDiv.className = 'ticket-pdf-section';
-                    confirmationDiv.innerHTML = `
-                        <div class="ticket-pdf-section-header">Booking Confirmation</div>
-                        <div style="text-align: center; margin: 20px 0;">
-                            <i class="fas fa-check-circle" style="color: #28a745; font-size: 3rem;"></i>
-                        </div>
-                        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px;">
-                            <h4>E-Ticket Number: <strong>${document.querySelector('[th\\:text="${booking.eTicketNumber}"]')?.textContent || 'ET-' + Math.random().toString(36).substring(2, 10).toUpperCase()}</strong></h4>
-                            <p>Please keep this number for your records and present it at check-in.</p>
-                        </div>
-                    `;
-                    pdfContainer.appendChild(confirmationDiv);
-                    
-                    // Add flight details
-                    const flightCard = document.querySelector('.col-md-6:first-child .card');
-                    if (flightCard) {
-                        const flightDiv = document.createElement('div');
-                        flightDiv.className = 'ticket-pdf-section';
-                        flightDiv.innerHTML = `
-                            <div class="ticket-pdf-section-header">Flight Details</div>
-                            ${flightCard.querySelector('.card-body').innerHTML}
-                        `;
-                        pdfContainer.appendChild(flightDiv);
-                    }
-                    
-                    // Add passenger details
-                    const passengerCard = document.querySelector('.col-md-6:last-child .card');
-                    if (passengerCard) {
-                        const passengerDiv = document.createElement('div');
-                        passengerDiv.className = 'ticket-pdf-section';
-                        passengerDiv.innerHTML = `
-                            <div class="ticket-pdf-section-header">Passenger Details</div>
-                            ${passengerCard.querySelector('.card-body').innerHTML}
-                        `;
-                        pdfContainer.appendChild(passengerDiv);
-                    }
-                    
-                    // Add barcode placeholder
-                    const barcodeDiv = document.createElement('div');
-                    barcodeDiv.className = 'ticket-barcode';
-                    pdfContainer.appendChild(barcodeDiv);
-                    
-                    // Temporarily add to body for rendering
-                    document.body.appendChild(pdfContainer);
-                    
-                    // Generate PDF
-                    html2canvas(pdfContainer, {
-                        scale: 2,
-                        logging: true,
-                        useCORS: true,
-                        backgroundColor: '#ffffff'
-                    }).then(canvas => {
-                        const { jsPDF } = window.jspdf;
-                        const doc = new jsPDF('p', 'mm', 'a4');
-                        
-                        const imgData = canvas.toDataURL('image/png');
-                        const imgWidth = doc.internal.pageSize.getWidth() - 20; // Add margins
-                        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                        
-                        // Center the content
-                        const xPos = 10; // Left margin
-                        const yPos = 10; // Top margin
-                        
-                        doc.addImage(imgData, 'PNG', xPos, yPos, imgWidth, imgHeight);
-                        
-                        // Get ticket number for filename
-                        const ticketNumber = document.querySelector('[th\\:text="${booking.eTicketNumber}"]')?.textContent.trim() || 
-                                           'ET-' + Math.random().toString(36).substring(2, 10).toUpperCase();
-                        
-                        doc.save('SkyRise_Ticket_' + ticketNumber + '.pdf');
-                        
-                        // Clean up
-                        document.body.removeChild(pdfContainer);
-                    }).catch(error => {
-                        console.error('PDF generation error:', error);
-                        alert('Failed to generate PDF. Please try again.');
-                        document.body.removeChild(pdfContainer);
-                    });
-                    
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('An error occurred while generating the PDF.');
-                }
-            });
-        });
-    </script>
 </body>
-</html>
+</html> 
